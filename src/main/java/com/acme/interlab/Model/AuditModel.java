@@ -14,19 +14,16 @@ import java.util.Date;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"CreatedAt", "UpdateAt"}, allowGetters = true)
+@JsonIgnoreProperties(value = {"createdAt", "updateAt"}, allowGetters = true)
 
 public abstract class AuditModel implements Serializable {
-
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    private Date CreatedAt;
-
+    private Date createdAt;
 
     @Column(nullable = false )
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
-    private Date UpdateAt;
-
+    private Date updateAt;
 }
