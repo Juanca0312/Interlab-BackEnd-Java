@@ -1,4 +1,4 @@
-package com.acme.interlab.Model;
+package com.acme.interlab.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
