@@ -1,4 +1,4 @@
-package com.acme.interlab.Model;
+package com.acme.interlab.model;
 
 import lombok.Getter;
 import lombok.Setter;

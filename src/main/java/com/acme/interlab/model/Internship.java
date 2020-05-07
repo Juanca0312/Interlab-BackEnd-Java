@@ -1,4 +1,4 @@
-package com.acme.interlab.Model;
+package com.acme.interlab.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
