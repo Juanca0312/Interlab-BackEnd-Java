@@ -25,8 +25,8 @@ public class InternshipController {
     private InternshipService internshipService;
 
     @GetMapping("/internships")
-    public Page<InternshipResource> getAllProfiles(Pageable pageable){
-        Page<Internship> internshipsPage = internshipService.getAllPosts(pageable);
+    public Page<InternshipResource> getAllInternships(Pageable pageable){
+        Page<Internship> internshipsPage = internshipService.getAllInternships(pageable);
         List<InternshipResource> resources = internshipsPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }

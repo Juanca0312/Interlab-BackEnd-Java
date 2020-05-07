@@ -49,7 +49,7 @@ public class InternshipServiceImpl implements InternshipService {
 
 
     @Override
-    public Page<Internship> getAllPosts(Pageable pageable) {
+    public Page<Internship> getAllInternships(Pageable pageable) {
         return internshipRepository.findAll(pageable);
     }
 }

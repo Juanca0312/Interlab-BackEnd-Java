@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface InternshipService {
     Internship getInternshipById(Long internshipId);
-    Page<Internship> getAllPosts(Pageable pageable);
+    Page<Internship> getAllInternships(Pageable pageable);
     Internship createInternship(Internship internship);
     Internship updateInternship(Long internshipId, Internship internshipRequest);
     ResponseEntity<?> deletePost(Long internshipId);
