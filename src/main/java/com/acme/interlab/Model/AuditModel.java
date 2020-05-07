@@ -17,6 +17,7 @@ import java.util.Date;
 @JsonIgnoreProperties(value = {"createdAt", "updateAt"}, allowGetters = true)
 
 public abstract class AuditModel implements Serializable {
+
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
@@ -26,4 +27,5 @@ public abstract class AuditModel implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updateAt;
+
 }
