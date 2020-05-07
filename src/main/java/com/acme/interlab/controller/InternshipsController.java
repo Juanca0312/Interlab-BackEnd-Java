@@ -1,6 +1,6 @@
-package com.acme.interlab.Controller;
+package com.acme.interlab.controller;
 
-import com.acme.interlab.Model.Internship;
+import com.acme.interlab.model.Internship;
 import com.acme.interlab.exception.ResourceNotFoundException;
 import com.acme.interlab.repository.InternshipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
