@@ -1,4 +1,4 @@
-package com.acme.interlab.Controller;
+package com.acme.interlab.controller;
 
 public class StudentsController {
     int id;
