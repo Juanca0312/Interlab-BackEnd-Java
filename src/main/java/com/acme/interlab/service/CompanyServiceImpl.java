@@ -62,9 +62,8 @@ public class CompanyServiceImpl implements  CompanyService{
         return companyRepository.findAll(pageable);
     }
 
-    /*
     @Override
-    public Company assignCompnyUser(Long companyId, Long userId) {
+    public Company assignCompanyUser(Long companyId, Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(()-> new ResourceNotFoundException("User", "Id", userId));
         return companyRepository.findById(companyId).map(company ->{
@@ -76,7 +75,7 @@ public class CompanyServiceImpl implements  CompanyService{
     }
 
     @Override
-    public Company unassignCompnyUser(Long companyId, Long userId) {
+    public Company unassignCompanyUser(Long companyId, Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
         return companyRepository.findById(companyId).map(company -> {
@@ -84,6 +83,7 @@ public class CompanyServiceImpl implements  CompanyService{
             return companyRepository.save(company);
         }).orElseThrow(() -> new ResourceNotFoundException("Company", "Id", companyId));
     }
+
 
     @Override
     public Page<Company> getAllCompaniesByUserId(Long userId, Pageable pageable) {
@@ -95,6 +95,6 @@ public class CompanyServiceImpl implements  CompanyService{
                 .orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
     }
 
-    */
+
 
 }
