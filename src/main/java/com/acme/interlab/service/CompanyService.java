@@ -14,7 +14,7 @@ public interface CompanyService {
     Page<Company> getAllCompanies(Pageable pageable);
 
     //Methos with Users
-    //Company assignCompanyUser(Long companyId, Long userId);
-    //Company unassignCompanyUser(Long companyId, Long userId);
-    //Page<Company> getAllCompaniesByUserId(Long userId, org.springframework.data.domain.Pageable pageable);
+    Company assignCompanyUser(Long companyId, Long userId);
+    Company unassignCompanyUser(Long companyId, Long userId);
+    Page<Company> getAllCompaniesByUserId(Long userId, org.springframework.data.domain.Pageable pageable);
 }

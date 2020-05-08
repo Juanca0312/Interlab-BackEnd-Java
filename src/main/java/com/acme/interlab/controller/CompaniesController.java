@@ -60,6 +60,28 @@ public class CompaniesController {
         return companyService.deleteCompany(companyId);
     }
 
+    //Relation with Users (ManyToMany)
+    @GetMapping("/companies")
+    public Page<CompanyResource> getCompanyById(@PathVariable(name = "UserId") Long userId, Pageable pageable) {
+        Page<Company> companiesPage = companyService.getAllCompaniesByUserId(userId, pageable);
+        List<CompanyResource> resources = companiesPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        return new PageImpl<>(resources, pageable, resources.size());
+    }
+
+    @PostMapping("/companies/{companyId}/users/{userId}")
+    public CompanyResource assigncompanyUser(@PathVariable(name = "companyId") Long companyId,
+                                             @PathVariable(name = "userId") Long userId) {
+        return convertToResource(companyService.assignCompanyUser(companyId, userId));
+    }
+
+    @DeleteMapping("/companies/{companyId}/users/{userId}")
+    public CompanyResource unassignCompanyUser(@PathVariable(name = "companyId") Long companyId,
+                                               @PathVariable(name = "userId") Long userId) {
+
+        return convertToResource(companyService.unassignCompanyUser(companyId, userId));
+    }
+
+
     private Company convertToEntity(SaveCompanyResource resource)
     {
         return  mapper.map(resource, Company.class);
@@ -70,32 +92,5 @@ public class CompaniesController {
     {
         return mapper.map(entity, CompanyResource.class);
     }
-
-
-
-    /* Relation with Users (ManyToMany)
-    @GetMapping("/companies")
-    public Page<CompanyResource> getCompanyById(@PathVariable(name = "tagId") Long tagId, Pageable pageable) {
-        Page<Post> postsPage = postService.getAllPostsByTagId(tagId, pageable);
-        List<PostResource> resources = postsPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
-        return new PageImpl<>(resources, pageable, resources.size());
-    }
-    */
-
-/*
-    @PostMapping("/posts/{postId}/tags/{tagId}")
-    public PostResource assignPostTag(@PathVariable(name = "postId") Long postId,
-                                      @PathVariable(name = "tagId") Long tagId) {
-        return convertToResource(postService.assignPostTag(postId, tagId));
-    }
-
-    @DeleteMapping("/posts/{postId}/tags/{tagId}")
-    public PostResource unassignPostTag(@PathVariable(name = "postId") Long postId,
-                                        @PathVariable(name = "tagId") Long tagId) {
-
-        return convertToResource(postService.unassignPostTag(postId, tagId));
-    }
-*/
-
 
 }
