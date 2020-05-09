@@ -44,7 +44,7 @@ public class CompaniesController {
     }
 
     @PostMapping("/companies")
-    public CompanyResource createcompamy(@Valid @RequestBody SaveCompanyResource resource)  {
+    public CompanyResource createCompamy(@Valid @RequestBody SaveCompanyResource resource)  {
         Company company = convertToEntity(resource);
         return convertToResource(companyService.createCompany(company));
     }
@@ -61,7 +61,7 @@ public class CompaniesController {
     }
 
     //Relation with Users (ManyToMany)
-    @GetMapping("/companies")
+    @GetMapping("/companies/{companyId}/users/{userId}")
     public Page<CompanyResource> getCompanyById(@PathVariable(name = "UserId") Long userId, Pageable pageable) {
         Page<Company> companiesPage = companyService.getAllCompaniesByUserId(userId, pageable);
         List<CompanyResource> resources = companiesPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
@@ -69,7 +69,7 @@ public class CompaniesController {
     }
 
     @PostMapping("/companies/{companyId}/users/{userId}")
-    public CompanyResource assigncompanyUser(@PathVariable(name = "companyId") Long companyId,
+    public CompanyResource assignCompanyUser(@PathVariable(name = "companyId") Long companyId,
                                              @PathVariable(name = "userId") Long userId) {
         return convertToResource(companyService.assignCompanyUser(companyId, userId));
     }
