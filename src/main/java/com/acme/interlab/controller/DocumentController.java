@@ -60,7 +60,7 @@ public DocumentResource updateDocument(@PathVariable(name = "userId") Long userI
 
 @DeleteMapping("/users/{userId}/documents/{documentId}")
 public ResponseEntity<?> deleteDocument(@PathVariable(name = "userId") Long userId,
-                                        @PathVariable(name="comentId") Long documentId){
+                                        @PathVariable(name="documentId") Long documentId){
     return  documentService.deleteDocument(userId, documentId);
 }
 
