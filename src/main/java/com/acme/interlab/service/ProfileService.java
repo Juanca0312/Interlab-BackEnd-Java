@@ -10,5 +10,7 @@ public interface ProfileService {
     Profile updateProfile(Long profileId, Profile profileRequest);
     ResponseEntity<?> deletePost(Long profileId);
     Profile getProfileById(Long profileId);
-    Page<Profile> getAllPosts(Pageable pageable);
+    Page<Profile> getAllProfiles(Pageable pageable);
+    Page<Profile> getAllProfilesByUserId(Long userId, Pageable pageable);
+
 }

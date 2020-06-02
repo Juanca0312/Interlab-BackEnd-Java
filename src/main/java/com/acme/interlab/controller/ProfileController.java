@@ -27,7 +27,7 @@ public class ProfileController {
 
     @GetMapping("/profiles")
     public Page<ProfileResource> getAllProfiles(Pageable pageable){
-        Page<Profile> profilesPage = profileService.getAllPosts(pageable);
+        Page<Profile> profilesPage = profileService.getAllProfiles(pageable);
         List<ProfileResource> resources = profilesPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
