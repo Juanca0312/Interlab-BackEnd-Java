@@ -14,74 +14,64 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "Companies")
+@Table(name = "companies")
 @EntityListeners(AuditingEntityListener.class)
 @Data
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
 public class Company implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
+    private Long id;
 
     @NotNull
     @NotBlank
     @Size(max = 20)
     @Column(unique = true)
-    private String Name;
+    private String name;
 
     @NotNull
     @NotBlank
     @Size(max = 100)
-    private String Description;
+    private String description;
 
     @NotNull
     @NotBlank
-    @Size(max = 20)
-    private String Sector;
-
-
-    @NotNull
-    @NotBlank
-    @Size(max = 20)
-    private String Mail;
-
+    @Size(max = 30)
+    private String sector;
 
     @NotNull
     @NotBlank
-    @Size(max = 20)
-    private String Phone_number;
-
-
-    @NotNull
-    @NotBlank
-    @Size(max = 20)
-    private String Address;
-
+    @Size(max = 30)
+    private String email;
 
     @NotNull
     @NotBlank
-    @Size(max = 20)
-    private String Country;
-
+    @Size(max = 15)
+    private String phone;
 
     @NotNull
     @NotBlank
-    @Size(max = 20)
-    private String City;
+    @Size(max = 30)
+    private String address;
 
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createAt;
+    @NotNull
+    @NotBlank
+    @Size(max = 30)
+    private String country;
 
-    @Column(nullable = false)
-    private Date updatedAt;
+    @NotNull
+    @NotBlank
+    @Size(max = 30)
+    private String city;
+
+
+    //Relationships:
 
     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "Workers",
-            joinColumns = {@JoinColumn(name = "company_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")})
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "companies")
     @JsonIgnore
-    List<User> users;
+    private List<User> users;
+
 
 }

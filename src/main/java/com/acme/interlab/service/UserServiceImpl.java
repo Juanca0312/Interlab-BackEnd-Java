@@ -1,6 +1,7 @@
 package com.acme.interlab.service;
 
 import com.acme.interlab.exception.ResourceNotFoundException;
+import com.acme.interlab.model.Company;
 import com.acme.interlab.model.User;
 import com.acme.interlab.repository.CompanyRepository;
 import com.acme.interlab.repository.UserRepository;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements  UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -49,19 +50,45 @@ public class UserServiceImpl implements  UserService{
     }
 
     @Override
-    public User updateUser(Long userId, User userDetails) {
-        return userRepository.findById(userId).map(user -> {
-            user.setUsername(userDetails.getUsername());
-            //user.setPassword(userDetails.getPassword());
-            return userRepository.save(user);
-        }).orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
+    public User updateUser(Long userId, User userRequest) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
+        user.setUsername(userRequest.getUsername());
+        user.setPassword(userRequest.getPassword());
+        user.setEmail(userRequest.getEmail());
+        return userRepository.save(user);
     }
 
     @Override
     public ResponseEntity<?> deleteUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
+        userRepository.delete(user);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public User assignUserCompany(Long userId, Long companyId) {
+        Company company = companyRepository.findById(companyId)
+                .orElseThrow(() -> new ResourceNotFoundException("Company", "Id", companyId));
         return userRepository.findById(userId).map(user -> {
-            userRepository.delete(user);
-            return ResponseEntity.ok().build();
+            if(!user.getCompanies().contains(company)) {
+                user.getCompanies().add(company);
+                return userRepository.save(user);
+            }
+            return user;
+        }).orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
+
+    }
+
+    @Override
+    public User unAssignUserCompany(Long userId, Long companyId) {
+        Company company = companyRepository.findById(companyId)
+                .orElseThrow(() -> new ResourceNotFoundException("Company", "Id", companyId));
+        return userRepository.findById(userId).map(user -> {
+            user.getCompanies().remove(company);
+            return userRepository.save(user);
         }).orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
     }
+
 }
