@@ -8,8 +8,12 @@ import org.springframework.http.ResponseEntity;
 public interface UserService {
     Page<User> getAllUsers(Pageable pageable);
     Page<User> getAllUsersByCompanyId(Long CompanyId, Pageable pageable);
+
     User getUserById(Long userId);
     User createUser(User user);
-    User updateUser(Long userId, User userDetails);
+    User updateUser(Long userId, User userRequest);
     ResponseEntity<?> deleteUser(Long userId);
+
+    User assignUserCompany(Long userId, Long companyId);
+    User unAssignUserCompany(Long userId, Long companyId);
 }

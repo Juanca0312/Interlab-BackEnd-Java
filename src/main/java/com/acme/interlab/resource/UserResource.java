@@ -7,7 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserResource extends AuditModel {
-    private Long Id;
-    private String Username;
-    private String Password;
+    private Long id;
+    private String username;
+    private String password;
+    private String email;
 }
