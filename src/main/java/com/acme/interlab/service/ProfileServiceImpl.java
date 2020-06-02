@@ -22,10 +22,14 @@ public class ProfileServiceImpl implements ProfileService {
     public Profile updateProfile(Long profileId, Profile profileRequest) {
         Profile profile = profileRepository.findById(profileId)
                 .orElseThrow(() -> new ResourceNotFoundException("Profile", "Id", profileId));
+        profile.setRole(profileRequest.getRole());
+        profile.setFirstName(profileRequest.getFirstName());
+        profile.setLastName(profileRequest.getLastName());
         profile.setField(profileRequest.getField());
-        profile.setSemester(profileRequest.getSemester());
-        profile.setDegree(profileRequest.getDegree());
+        profile.setPhone(profileRequest.getPhone());
         profile.setDescription(profileRequest.getDescription());
+        profile.setCountry(profileRequest.getCountry());
+        profile.setCity(profileRequest.getCity());
         return profileRepository.save(profile);
     }
 
@@ -44,7 +48,12 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Page<Profile> getAllPosts(Pageable pageable) {
+    public Page<Profile> getAllProfiles(Pageable pageable) {
         return profileRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Profile> getAllProfilesByUserId(Long userId, Pageable pageable) {
+        return profileRepository.findByUserId(userId, pageable);
     }
 }
