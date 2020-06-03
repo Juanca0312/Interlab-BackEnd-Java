@@ -10,6 +10,10 @@ import java.util.Optional;
 
 @Repository
 public interface QualificationRepository extends JpaRepository<Qualification,Long> {
-//    Page<Qualification> findById(int id, Pageable pageable);
-//    Optional<Qualification> findById(int id);
+    Page<Qualification> findByCompanyId(Long companyId, Pageable pageable);
+    Page<Qualification> findByUserId(Long userId, Pageable pageable);
+    Optional<Qualification> findByIdAndUserId(Long id, Long userId);
+    Optional<Qualification> findByIdAndCompanyId(Long id, Long companyId);
 }
+
+

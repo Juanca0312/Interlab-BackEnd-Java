@@ -40,14 +40,26 @@ public class QualificationServiceImpl implements QualificationService{
     }
 
     @Override
-    public Qualification getQualificationById(Long qualificationId) {
-        return qualificationRepository.findById(qualificationId)
-                .orElseThrow(() -> new ResourceNotFoundException("Qualification", "Id", qualificationId));
+    public Qualification getQualificationByIdAndCompanyId(Long qualificationId, Long companyId) {
+        return qualificationRepository.findByIdAndCompanyId(qualificationId,companyId)
+                .orElseThrow(() -> new ResourceNotFoundException("Qualification not found with ID "+qualificationId +
+                        " and CompanyId" +companyId));
     }
 
+    @Override
+    public Qualification getQualificationByIdAndUserId(Long qualificationId, Long userId) {
+        return qualificationRepository.findByIdAndCompanyId(qualificationId,userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Qualification not found with ID "+qualificationId +
+                        " and UserId" +userId));
+    }
 
     @Override
-    public Page<Qualification> getAllQualifications(Pageable pageable) {
-        return qualificationRepository.findAll(pageable);
+    public Page<Qualification> getAllQualificationsByCompanyId(Long companyId, Pageable pageable) {
+        return qualificationRepository.findByCompanyId(companyId, pageable);
+    }
+
+    @Override
+    public Page<Qualification> getAllQualificationsByUserId(Long userId, Pageable pageable) {
+        return qualificationRepository.findByUserId(userId, pageable);
     }
 }
