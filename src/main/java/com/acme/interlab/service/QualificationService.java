@@ -9,6 +9,8 @@ public interface QualificationService {
     Qualification createQualification(Qualification qualification);
     Qualification updateQualification(Long qualificationId, Qualification qualificationRequest);
     ResponseEntity<?> deleteQualification(Long qualificationId);
-    Qualification getQualificationById(Long qualificationId);
-    Page<Qualification> getAllQualifications(Pageable pageable);
+    Qualification getQualificationByIdAndCompanyId(Long company,Long qualificationId);
+    Qualification getQualificationByIdAndUserId(Long userId, Long qualificationId);
+    Page<Qualification> getAllQualificationsByCompanyId(Long companyId, Pageable pageable);
+    Page<Qualification> getAllQualificationsByUserId(Long userId,Pageable pageable);
 }

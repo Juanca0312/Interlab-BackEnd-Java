@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "requirement")
+@Table(name = "requirements")
 @Getter
 @Setter
 public class Requirement extends AuditModel{
