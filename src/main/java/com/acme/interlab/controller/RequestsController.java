@@ -55,7 +55,7 @@ public class RequestsController {
 
 
     @PutMapping("/users/{userId}/requests/{requestsId}")
-    public RequestsResource updateDocument(@PathVariable(name = "userId") Long userId,
+    public RequestsResource updateRequest(@PathVariable(name = "userId") Long userId,
                                            @PathVariable(name = "requestsId") Long requestsId,
                                            @Valid @RequestBody SaveRequestsResource resource){
         return convertToResource(requestsService.updateRequests(userId, requestsId, convertToEntity(resource)));
