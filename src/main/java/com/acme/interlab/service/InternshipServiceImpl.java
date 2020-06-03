@@ -29,7 +29,7 @@ public class InternshipServiceImpl implements InternshipService {
 
     @Override
     public Internship getInternshipByIdAndCompanyId(Long companyId, Long internshipId) {
-        return internshipRepository.findByInternshipIdAndCompanyId(internshipId, companyId)
+        return internshipRepository.findByIdAndCompanyId(internshipId, companyId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Internship not found with Id " + internshipId +
                                 " and Company Id " + companyId));
@@ -60,7 +60,7 @@ public class InternshipServiceImpl implements InternshipService {
 
     @Override
     public ResponseEntity<?> deleteInternship(Long companyId, Long internshipId) {
-        return internshipRepository.findByInternshipIdAndCompanyId(internshipId, companyId).map(internship -> {
+        return internshipRepository.findByIdAndCompanyId(internshipId, companyId).map(internship -> {
             internshipRepository.delete(internship);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundException(

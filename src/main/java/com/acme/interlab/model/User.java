@@ -36,7 +36,7 @@ public class User extends AuditModel {
     private String email;
 
     //Relationships:
-    @OneToOne(mappedBy = "users")
+    @OneToOne(mappedBy = "user")
             private Profile profile;
 
     @ManyToMany(fetch = FetchType.LAZY,
