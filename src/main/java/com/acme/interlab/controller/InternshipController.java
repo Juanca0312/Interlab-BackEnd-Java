@@ -54,7 +54,7 @@ public class InternshipController {
     @DeleteMapping("companies/{companyId}/internships/{id}")
     public ResponseEntity<?> deleteInternship(@PathVariable(name = "companyId") Long companyId,
                                                 @PathVariable(name = "id") Long internshipId){
-        return internshipService.deletePost(companyId, internshipId);
+        return internshipService.deleteInternship(companyId, internshipId);
     }
 
     private Internship convertToEntity(SaveInternshipResource resource) { return mapper.map(resource, Internship.class); }
