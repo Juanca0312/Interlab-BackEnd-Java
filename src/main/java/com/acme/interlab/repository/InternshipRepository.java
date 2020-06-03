@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface InternshipRepository extends JpaRepository<Internship, Long> {
     Page<Internship> findByCompanyId(Long internshipId, Pageable pageable);
-    Optional<Internship> findByInternshipIdAndCompanyId(Long id, Long CompanyId);
+    Optional<Internship> findByIdAndCompanyId(Long id, Long CompanyId);
 }
