@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
     Page<Profile> findByUserId(Long userId, Pageable pageable);
+    Optional<Profile> findByIdAndUserId(Long id, Long userId);
 }

@@ -72,7 +72,8 @@ public class Profile extends AuditModel{
 
     //Relationships
     //User One To One
-    @OneToOne(mappedBy = "profile")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
 }

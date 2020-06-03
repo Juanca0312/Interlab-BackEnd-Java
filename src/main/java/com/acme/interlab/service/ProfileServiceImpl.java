@@ -3,6 +3,7 @@ package com.acme.interlab.service;
 import com.acme.interlab.exception.ResourceNotFoundException;
 import com.acme.interlab.model.Profile;
 import com.acme.interlab.repository.ProfileRepository;
+import com.acme.interlab.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,30 +16,45 @@ public class ProfileServiceImpl implements ProfileService {
     @Autowired
     private ProfileRepository profileRepository;
 
-    @Override
-    public Profile createProfile(Profile profile) { return profileRepository.save(profile); }
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
-    public Profile updateProfile(Long profileId, Profile profileRequest) {
-        Profile profile = profileRepository.findById(profileId)
-                .orElseThrow(() -> new ResourceNotFoundException("Profile", "Id", profileId));
-        profile.setRole(profileRequest.getRole());
-        profile.setFirstName(profileRequest.getFirstName());
-        profile.setLastName(profileRequest.getLastName());
-        profile.setField(profileRequest.getField());
-        profile.setPhone(profileRequest.getPhone());
-        profile.setDescription(profileRequest.getDescription());
-        profile.setCountry(profileRequest.getCountry());
-        profile.setCity(profileRequest.getCity());
+    public Profile createProfile(Long userId, Profile profile) {
+        return userRepository.findById(userId).map(user -> {
+            profile.setUser(user);
+            return profileRepository.save(profile);
+        }).orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId))
+    }
+
+    @Override
+    public Profile updateProfile(Long userId, Long profileId, Profile profileRequest) {
+        if(!userRepository.existsById(userId)) {
+            throw new ResourceNotFoundException("User", "Id", userId);
+        }
+
+        return profileRepository.findById(profileId).map(profile -> {
+            profile.setRole(profileRequest.getRole());
+            profile.setFirstName(profileRequest.getFirstName());
+            profile.setLastName(profileRequest.getLastName());
+            profile.setField(profileRequest.getField());
+            profile.setPhone(profileRequest.getPhone());
+            profile.setDescription(profileRequest.getDescription());
+            profile.setCountry(profileRequest.getCountry());
+            profile.setCity(profileRequest.getCity());
+        }).orElseThrow(() -> new ResourceNotFoundException("Profile", "Id", profileId));
+
+
         return profileRepository.save(profile);
     }
 
     @Override
-    public ResponseEntity<?> deletePost(Long profileId) {
-        Profile profile = profileRepository.findById(profileId)
-                .orElseThrow(() -> new ResourceNotFoundException("Profile", "Id", profileId));
-        profileRepository.delete(profile);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> deleteProfile(Long userId, Long profileId) {
+        return profileRepository.findByIdAndUserId(profileId, userId).map(profile -> {
+            profileRepository.delete(profile);
+            return ResponseEntity.ok().build();
+        })orElseThrow(() -> new ResourceNotFoundException("Profile", "Id", profileId));
+
     }
 
     @Override
