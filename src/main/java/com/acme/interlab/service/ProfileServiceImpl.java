@@ -24,7 +24,7 @@ public class ProfileServiceImpl implements ProfileService {
         return userRepository.findById(userId).map(user -> {
             profile.setUser(user);
             return profileRepository.save(profile);
-        }).orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId))
+        }).orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
     }
 
     @Override
@@ -42,10 +42,9 @@ public class ProfileServiceImpl implements ProfileService {
             profile.setDescription(profileRequest.getDescription());
             profile.setCountry(profileRequest.getCountry());
             profile.setCity(profileRequest.getCity());
+            return profileRepository.save(profile);
         }).orElseThrow(() -> new ResourceNotFoundException("Profile", "Id", profileId));
 
-
-        return profileRepository.save(profile);
     }
 
     @Override
@@ -53,7 +52,7 @@ public class ProfileServiceImpl implements ProfileService {
         return profileRepository.findByIdAndUserId(profileId, userId).map(profile -> {
             profileRepository.delete(profile);
             return ResponseEntity.ok().build();
-        })orElseThrow(() -> new ResourceNotFoundException("Profile", "Id", profileId));
+        }).orElseThrow(() -> new ResourceNotFoundException("Profile", "Id", profileId));
 
     }
 
