@@ -36,6 +36,8 @@ public class User extends AuditModel {
     private String email;
 
     //Relationships:
+    @OneToOne(mappedBy = "users")
+            private Profile profile;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE})
