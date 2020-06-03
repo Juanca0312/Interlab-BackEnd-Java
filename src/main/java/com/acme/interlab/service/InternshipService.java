@@ -6,9 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 public interface InternshipService {
-    Internship getInternshipById(Long internshipId);
-    Page<Internship> getAllInternships(Pageable pageable);
-    Internship createInternship(Internship internship);
-    Internship updateInternship(Long internshipId, Internship internshipRequest);
-    ResponseEntity<?> deletePost(Long internshipId);
+    Page<Internship> getAllInternshipsByCompanyId(Long companyId, Pageable pageable);
+    Internship getInternshipByIdAndCompanyId(Long companyId, Long internshipId);
+    Internship createInternship(Long companyId, Internship internship);
+    Internship updateInternship(Long companyId, Long internshipId, Internship internshipDetails);
+    ResponseEntity<?> deleteInternship(Long companyId, Long internshipId);
 }

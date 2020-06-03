@@ -1,5 +1,6 @@
 package com.acme.interlab.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Getter;
@@ -17,8 +18,6 @@ import javax.validation.constraints.NotBlank;
 @EntityListeners(AuditingEntityListener.class)
 @Data
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
-@Getter
-@Setter
 public class Internship implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,13 +29,15 @@ public class Internship implements Serializable {
     @NotBlank
     private String description;
 
-    private double salary;
+    private Date publicationDate;
 
     @NotBlank
     private Date startingDate;
 
     @NotBlank
     private Date finishingDate;
+
+    private double salary;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -45,36 +46,11 @@ public class Internship implements Serializable {
     @Column(nullable = false)
     private Date updatedAt;
 
+    //Relationships
+    //Company muchos Internships
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "companyId", nullable = false)
+    @JsonIgnore
+    private Company company;
 
-    public String getState() {
-        return state;
-    }
-    public String getDescription() {
-        return description;
-    }
-    public double getSalary() {
-        return salary;
-    }
-    public Date getStartingDate() {
-        return startingDate;
-    }
-    public Date getFinishingDate() {
-        return finishingDate;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public void setSalary(double salary) {
-        this.salary = salary;
-    }
-    public void setStartingDate(Date startingDate) {
-        this.startingDate = startingDate;
-    }
-    public void setFinishingDate(Date finishingDate) {
-        this.finishingDate = finishingDate;
-    }
 }
