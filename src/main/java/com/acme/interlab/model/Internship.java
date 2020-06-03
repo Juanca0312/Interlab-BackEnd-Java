@@ -46,6 +46,10 @@ public class Internship implements Serializable {
     @Column(nullable = false)
     private Date updatedAt;
 
+
+    @OneToOne(mappedBy = "internship")
+    private Requirement requirement;
+
     //Relationships
     //Company muchos Internships
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
