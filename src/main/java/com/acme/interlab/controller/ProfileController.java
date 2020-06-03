@@ -59,7 +59,7 @@ public class ProfileController {
     public ProfileResource updateProfile(@PathVariable(name = "userId") Long userId,
                                          @PathVariable(name = "id") Long profileId,
                                          @Valid @RequestBody SaveProfileResource resource) {
-        return convertToResource(profileService.updateProfile(userId, profileId, profile));
+        return convertToResource(profileService.updateProfile(userId, profileId, convertToEntity(resource)));
     }
 
     //Eliminar
