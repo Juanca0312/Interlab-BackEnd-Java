@@ -23,7 +23,7 @@ public class RequirementServiceImpl implements RequirementService{
     @Override
     public Requirement createRequirement(Long internshipId, Requirement requirement) {
         return internshipRepository.findById(internshipId).map(internship -> {
-            Requirement.setInternship(internship);
+            requirement.setInternship(internship);
             return requirementRepository.save(requirement);
         }).orElseThrow(() -> new ResourceNotFoundException("Internship", "Id", internshipId));
     }
