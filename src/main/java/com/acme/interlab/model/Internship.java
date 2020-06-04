@@ -3,12 +3,11 @@ package com.acme.interlab.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -56,5 +55,9 @@ public class Internship implements Serializable {
     @JoinColumn(name = "companyId", nullable = false)
     @JsonIgnore
     private Company company;
+
+    @OneToMany(mappedBy = "internship")
+    List<Request> requests;
+
 
 }

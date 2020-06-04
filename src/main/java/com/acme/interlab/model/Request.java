@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Table(name= "requests")
 @Getter
 @Setter
-public class Requests implements Serializable {
+public class Request implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,5 +38,9 @@ public class Requests implements Serializable {
     @JsonIgnore
     private User user;
 
-
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "internship_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Internship internship;
 }

@@ -16,4 +16,8 @@ public interface UserService {
 
     User assignUserCompany(Long userId, Long companyId);
     User unAssignUserCompany(Long userId, Long companyId);
+
+    User assignUserInternship(Long userId, Long internshipId, Long requestId);
+    User unassignUserInternship(Long userId, Long internshipId, Long requestId);
+
 }

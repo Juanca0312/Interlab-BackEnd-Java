@@ -25,6 +25,7 @@ public class QualificationController {
     @Autowired
     private QualificationService qualificationService;
 
+
     @GetMapping("/companies/{companyId}/qualification")
     public Page<QualificationResource> getAllQualificationsByCompanyId(@PathVariable(name = "companyId") Long companyId,
                                                                        Pageable pageable) {
@@ -32,6 +33,7 @@ public class QualificationController {
         List<QualificationResource> resources = qualificationPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
+
 
     @GetMapping("/users/{userId}/qualification")
     public Page<QualificationResource> getAllQualificationsByUserId(@PathVariable(name = "userId") Long userId,
@@ -41,6 +43,7 @@ public class QualificationController {
         return new PageImpl<>(resources, pageable, resources.size());
     }
     //editado
+
     @GetMapping("/company/{companyId}/qualifications/{qualificationId}")
     public QualificationResource getQualificationByIdAndCompanyId(
             @PathVariable(name = "companyId") Long companyId,
@@ -48,6 +51,7 @@ public class QualificationController {
         return convertToResource(qualificationService.getQualificationByIdAndCompanyId(companyId,qualificationId));
     }
     //editado
+
     @GetMapping("/user/{userId}/qualifications/{qualificationId}")
     public QualificationResource getQualificationByIdAndUserId(
             @PathVariable(name = "userId") Long userId,
