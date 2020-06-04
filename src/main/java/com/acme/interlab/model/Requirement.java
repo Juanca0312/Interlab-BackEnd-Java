@@ -36,7 +36,9 @@ public class Requirement extends AuditModel{
     @Size(max = 150)
     private String description;
 
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "intership_id", referencedColumnName = "id")
+    private Internship internship;
 
     public String getField() {
         return field;
