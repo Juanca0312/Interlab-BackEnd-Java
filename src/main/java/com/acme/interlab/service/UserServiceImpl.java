@@ -2,8 +2,11 @@ package com.acme.interlab.service;
 
 import com.acme.interlab.exception.ResourceNotFoundException;
 import com.acme.interlab.model.Company;
+import com.acme.interlab.model.Request;
 import com.acme.interlab.model.User;
 import com.acme.interlab.repository.CompanyRepository;
+import com.acme.interlab.repository.InternshipRepository;
+import com.acme.interlab.repository.RequestRepository;
 import com.acme.interlab.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +25,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private CompanyRepository companyRepository;
+
+    @Autowired
+    private InternshipRepository internshipRepository;
+
+    @Autowired
+    private RequestRepository requestRepository;
 
     @Override
     public Page<User> getAllUsers(Pageable pageable) {
@@ -90,5 +99,49 @@ public class UserServiceImpl implements UserService {
             return userRepository.save(user);
         }).orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
     }
+
+
+    @Override
+    public User unassignUserInternship(Long userId, Long internshipId, Long requestId) {
+        Request request = requestRepository.findById(requestId)
+                .orElseThrow(() -> new ResourceNotFoundException("Request", "Id",requestId));
+        internshipRepository.findById(internshipId).map(internship -> {
+            if (!internship.getRequests().contains(request)) {
+                internship.getRequests().remove(request);
+                internshipRepository.save(internship);
+            }
+            return internship;
+        }).orElseThrow(() -> new ResourceNotFoundException("UserId","Id", userId));
+        return userRepository.findById(userId).map(user -> {
+            if(!user.getRequests().contains(request)){
+                user.getRequests().remove(request);
+                return userRepository.save(user);
+            }
+            return user;
+        }).orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
+    }
+
+
+    @Override
+    public User assignUserInternship(Long userId, Long internshipId, Long requestId) {
+        Request request = requestRepository.findById(requestId)
+                .orElseThrow(() -> new ResourceNotFoundException("Request", "Id",requestId));
+        internshipRepository.findById(internshipId).map(internship -> {
+            if(!internship.getRequests().contains(request)) {
+                internship.getRequests().add(request);
+                internshipRepository.save(internship);
+            }
+            return internship;
+        }).orElseThrow(() -> new ResourceNotFoundException("Internship", "Id", internshipId));
+
+        return userRepository.findById(userId).map(user -> {
+            if(!user.getRequests().contains(request)){
+                user.getRequests().add(request);
+                return userRepository.save(user);
+            }
+            return user;
+        }).orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
+    }
+
 
 }

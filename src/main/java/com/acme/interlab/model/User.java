@@ -39,6 +39,9 @@ public class User extends AuditModel {
     @OneToOne(mappedBy = "user")
             private Profile profile;
 
+    @OneToMany(mappedBy = "user")
+    List<Request> requests;
+
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "users_companies",
@@ -46,4 +49,5 @@ public class User extends AuditModel {
             inverseJoinColumns = {@JoinColumn(name = "company_id")})
     @JsonIgnore
     List<Company> companies;
+
 }

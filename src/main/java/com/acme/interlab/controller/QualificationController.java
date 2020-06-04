@@ -25,6 +25,7 @@ public class QualificationController {
     @Autowired
     private QualificationService qualificationService;
 
+    @GetMapping("/qualifications/companies/{companyId}")
     public Page<QualificationResource> getAllQualificationsByCompanyId(@PathVariable(name = "companyId") Long companyId,
                                                                        Pageable pageable) {
         Page<Qualification> qualificationPage = qualificationService.getAllQualificationsByCompanyId(companyId, pageable);
@@ -32,6 +33,7 @@ public class QualificationController {
         return new PageImpl<>(resources, pageable, resources.size());
     }
 
+    @GetMapping("/qualifications/users/{userId}")
     public Page<QualificationResource> getAllQualificationsByUserId(@PathVariable(name = "userId") Long userId,
                                                                     Pageable pageable) {
         Page<Qualification> qualificationPage = qualificationService.getAllQualificationsByUserId(userId, pageable);
@@ -39,14 +41,14 @@ public class QualificationController {
         return new PageImpl<>(resources, pageable, resources.size());
     }
     //editado
-    @GetMapping("/qualifications/{id}")
+    @GetMapping("/qualifications/{qualificationId}/companies/{companyId}")
     public QualificationResource getQualificationByIdAndCompanyId(
             @PathVariable(name = "companyId") Long companyId,
             @PathVariable(name = "qualificationId") Long qualificationId) {
         return convertToResource(qualificationService.getQualificationByIdAndCompanyId(companyId,qualificationId));
     }
     //editado
-    @GetMapping("/qualifications/{id}")
+    @GetMapping("/qualifications/{qualificationId}/users/{userId}")
     public QualificationResource getQualificationByIdAndUserId(
             @PathVariable(name = "userId") Long userId,
             @PathVariable(name = "qualificationId") Long qualificationId) {

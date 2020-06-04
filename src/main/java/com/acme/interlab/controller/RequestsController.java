@@ -1,10 +1,10 @@
 package com.acme.interlab.controller;
 
 
-import com.acme.interlab.model.Requests;
-import com.acme.interlab.resource.RequestsResource;
-import com.acme.interlab.resource.SaveRequestsResource;
-import com.acme.interlab.service.RequestsService;
+import com.acme.interlab.model.Request;
+import com.acme.interlab.resource.RequestResource;
+import com.acme.interlab.resource.SaveRequestResource;
+import com.acme.interlab.service.RequestService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,59 +21,73 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class RequestsController {
 
+
 @Autowired
     private ModelMapper mapper;
 
 @Autowired
-    private RequestsService requestsService;
+    private RequestService requestService;
 
 
-    @GetMapping("/users/{userId}/requests")
-    public Page<RequestsResource> getAllRequestsByUserId(
+     @GetMapping("/requests")
+     public Page<RequestResource> getAllRequests(Pageable pageable){
+    List<RequestResource> requests = requestService.getAllRequests(pageable)
+            .getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+    int requestCount = requests.size();
+    return new PageImpl<>(requests, pageable, requestCount);
+    }
+
+
+@GetMapping("/users/{userId}/requests")
+    public Page<RequestResource> getAllRequestsByUserId(
             @PathVariable(name = "userId") Long userId,
             Pageable pageable)
     {
-        Page<Requests> requestsPage = requestsService.getAllRequestsByUserId(userId, pageable);
-        List<RequestsResource> resources = requestsPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        Page<Request> requestPage = requestService.getAllRequestsByUserId(userId, pageable);
+        List<RequestResource> resources = requestPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
 
-    @GetMapping("/users/{userId}/requests/{requestsId}")
-    public RequestsResource getRequestsByIdAndUserId(@PathVariable(name = "userId") Long userId,
-                                                     @PathVariable(name = "requestsId") Long requestsId){
-        return convertToResource(requestsService.getRequestsByIdAndUserId(userId, requestsId));
+    @GetMapping("/users/{userId}/internships/{internshipId}/requests/{requestId}")
+    public RequestResource getRequestsByIdAndUserId(@PathVariable(name = "userId") Long userId,
+                                                    @PathVariable(name = "internshipId") Long internshipId,
+                                                    @PathVariable(name = "requestId") Long requestsId){
+        return convertToResource(requestService.getRequestByIdAUserIdAndInternshipId(userId, internshipId,requestsId));
     }
 
 
 
     @PostMapping("/users/{userId}/requests")
-    public RequestsResource createRequests(@PathVariable(name = "userId") Long userId,
-                                           @Valid @RequestBody SaveRequestsResource resource){
-        return convertToResource(requestsService.createRequests(userId, convertToEntity(resource)));
+    public RequestResource createRequests(@PathVariable(name = "userId") Long userId,
+                                          @Valid @RequestBody SaveRequestResource resource){
+        return convertToResource(requestService.createRequest( userId,convertToEntity(resource)));
     }
 
 
 
-    @PutMapping("/users/{userId}/requests/{requestsId}")
-    public RequestsResource updateRequest(@PathVariable(name = "userId") Long userId,
-                                           @PathVariable(name = "requestsId") Long requestsId,
-                                           @Valid @RequestBody SaveRequestsResource resource){
-        return convertToResource(requestsService.updateRequests(userId, requestsId, convertToEntity(resource)));
+    @PutMapping("/internships/{internshipId}/requests/{requestId}")
+    public RequestResource updateRequest(@PathVariable(name= "internshipId") Long internshipId,
+                                         @PathVariable(name = "requestId") Long requestsId,
+                                         @Valid @RequestBody SaveRequestResource resource){
+        return convertToResource(requestService.updateRequest(internshipId, requestsId, convertToEntity(resource)));
     }
 
 
-    @DeleteMapping("/users/{userId}/requests/{requestsId}")
+
+
+    @DeleteMapping("/users/{userId}/internships/{internshipId}/requests/{requestsId}")
     public ResponseEntity<?> deleteRequests(@PathVariable(name = "userId") Long userId,
+                                            @PathVariable(name = "internshipId") Long internshipId,
                                             @PathVariable(name="requestsId") Long requestsId){
-        return  requestsService.deleteRequests(userId, requestsId);
+        return  requestService.deleteRequest(userId, internshipId, requestsId);
     }
 
-    private Requests convertToEntity(SaveRequestsResource resource) {
-        return mapper.map(resource, Requests.class);
+    private Request convertToEntity(SaveRequestResource resource) {
+        return mapper.map(resource, Request.class);
     }
 
-    private RequestsResource convertToResource(Requests entity) {
-        return mapper.map(entity, RequestsResource.class);
+    private RequestResource convertToResource(Request entity) {
+        return mapper.map(entity, RequestResource.class);
     }
 
 

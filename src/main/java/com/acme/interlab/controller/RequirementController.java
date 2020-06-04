@@ -25,6 +25,7 @@ public class RequirementController {
     @Autowired
     private RequirementService requirementService;
 
+    @GetMapping("/requirements")
     public Page<RequirementResource> getAllRequirements(Pageable pageable) {
         Page<Requirement> requirementPage = requirementService.getAllRequirements(pageable);
         List<RequirementResource> resources = requirementPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
