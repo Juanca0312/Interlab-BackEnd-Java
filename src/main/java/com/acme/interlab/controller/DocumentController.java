@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api")
 public class DocumentController {
-
     
 @Autowired
     private ModelMapper mapper;
@@ -28,6 +27,11 @@ public class DocumentController {
 @Autowired
     private DocumentService documentService;
 
+//Example of how to work with Lists instead of Pages, I strongly believe that the first one is easier to use and test.
+@GetMapping("/documents")
+    public List<Document> getAllDocuments() {
+    return documentService.getAllDocuments();
+    }
 
 @GetMapping("/users/{userId}/documents")
     public Page<DocumentResource> getAllDocumentsByUserId(
