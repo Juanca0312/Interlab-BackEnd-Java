@@ -18,8 +18,7 @@ import java.util.Date;
 @Table(name = "documents")
 @EntityListeners(AuditingEntityListener.class)
 @Data
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
-public class Document implements Serializable {
+public class Document extends AuditModel {
 
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,8 +34,6 @@ private String name;
 @NotBlank
 @Lob
 private String description;
-
-
 
 @ManyToOne(fetch = FetchType.LAZY, optional = false)
 @JoinColumn(name = "user_id", nullable = false)
