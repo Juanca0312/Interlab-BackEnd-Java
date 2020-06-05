@@ -1,5 +1,6 @@
 package com.acme.interlab;
 
+import com.acme.interlab.model.Company;
 import com.acme.interlab.model.User;
 import com.acme.interlab.resource.UserResource;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,15 @@ public class HttpRequestTest {
 	@Test
 	public void getAllUsersShouldReturnUsers() throws Exception {
 		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "api/users", User.class));
-		//Page<UserResource> getAllUsers
+	}
+
+	@Test
+	public void getCompanyByIdShouldReturnCompany() throws Exception {
+		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "api/companies/1", Company.class));
+	}
+
+	@Test
+	public void getAllCompaniesShouldReturnCompanies() throws Exception {
+		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "api/companies", Company.class));
 	}
 }
