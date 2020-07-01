@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 @Tag(name = "user", description = "Users API")
 @RestController
 @RequestMapping("/api")
-@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -31,6 +30,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @CrossOrigin
     @GetMapping("/users")
     public Page<UserResource> getAllUsers(Pageable pageable){
         Page<User> usersPage = userService.getAllUsers(pageable);
@@ -39,11 +39,13 @@ public class UserController {
         return new PageImpl<>(resources, pageable, resources.size());
     }
 
+    @CrossOrigin
     @GetMapping("/users/{id}")
     public UserResource getUserById(@PathVariable(name = "id") Long userId){
         return convertToResource(userService.getUserById(userId));
     }
 
+    @CrossOrigin
     @GetMapping("/companies/{companyId}/users")
     public Page<UserResource> getAllUsersByCompanyId(@PathVariable(name = "companyId") Long companyId, Pageable pageable){
         Page<User> usersPage = userService.getAllUsersByCompanyId(companyId, pageable);
@@ -51,29 +53,34 @@ public class UserController {
         return new PageImpl<>(resources, pageable, resources.size());
     }
 
+    @CrossOrigin
     @PostMapping("/users")
     public UserResource createUser(@Valid @RequestBody SaveUserResource resource)  {
         User user = convertToEntity(resource);
         return convertToResource(userService.createUser(user));
     }
 
+    @CrossOrigin
     @PutMapping("/users/{id}")
     public UserResource updateUser(@PathVariable(name = "id") Long userId, @Valid @RequestBody SaveUserResource resource) {
         User user = convertToEntity(resource);
         return convertToResource(userService.updateUser(userId, user));
     }
 
+    @CrossOrigin
     @DeleteMapping("/users/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable(name = "id") Long userId) {
         return userService.deleteUser(userId);
     }
 
+    @CrossOrigin
     @PostMapping("/users/{userId}/companies/{companyId}")
     public UserResource assignUserCompany(@PathVariable(name = "userId") Long userId,
                                           @PathVariable(name = "companyId") Long companyId) {
         return convertToResource(userService.assignUserCompany(userId, companyId));
     }
 
+    @CrossOrigin
     @DeleteMapping("/users/{userId}/companies/{companyId}")
     public UserResource unAssignUserCompany(@PathVariable(name = "userId") Long userId,
                                         @PathVariable(name = "companyId") Long companyId) {
@@ -81,12 +88,14 @@ public class UserController {
         return convertToResource(userService.unAssignUserCompany(userId, companyId));
     }
 
+    @CrossOrigin
     @PostMapping("/users/{userId}/internships/{internshipId}")
     public UserResource assignUserInternship(@PathVariable(name = "userId") Long userId,
                                           @PathVariable(name = "internshipId") Long internshipId) {
         return convertToResource(userService.assignUserInternship(userId, internshipId));
     }
 
+    @CrossOrigin
     @DeleteMapping("/users/{userId}/internship/{internshipId}/request/{requestId}")
     public UserResource unAssignUserInternship(@PathVariable(name = "userId") Long userId,
                                             @PathVariable(name = "internshipId") Long internshipId,
