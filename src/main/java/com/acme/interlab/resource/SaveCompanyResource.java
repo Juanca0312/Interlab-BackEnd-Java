@@ -14,47 +14,42 @@ public class SaveCompanyResource {
 
     @NotNull
     @NotBlank
-    @Size(max = 20)
+    @Size(max = 30)
     @Column(unique = true)
-    private String Name;
+    private String name;
 
     @NotNull
     @NotBlank
     @Size(max = 100)
-    private String Description;
+    private String description;
+
+    @NotNull
+    @NotBlank
+    @Size(max = 30)
+    private String sector;
+
+    @NotNull
+    @NotBlank
+    @Size(max = 30)
+    private String email;
+
+    @NotNull
+    @NotBlank
+    @Size(max = 15)
+    private String phone;
+
+    @NotNull
+    @NotBlank
+    @Size(max = 30)
+    private String address;
 
     @NotNull
     @NotBlank
     @Size(max = 20)
-    private String Sector;
-
-
-    @NotNull
-    @NotBlank
-    @Size(max = 20)
-    private String Mail;
-
+    private String country;
 
     @NotNull
     @NotBlank
     @Size(max = 20)
-    private String Phone_number;
-
-
-    @NotNull
-    @NotBlank
-    @Size(max = 20)
-    private String Address;
-
-
-    @NotNull
-    @NotBlank
-    @Size(max = 20)
-    private String Country;
-
-
-    @NotNull
-    @NotBlank
-    @Size(max = 20)
-    private String City;
+    private String city;
 }

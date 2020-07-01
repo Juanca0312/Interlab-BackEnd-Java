@@ -25,18 +25,39 @@ public class QualificationController {
     @Autowired
     private QualificationService qualificationService;
 
-    public Page<QualificationResource> getAllQualificationts(Pageable pageable) {
-        Page<Qualification> qualificationPage = qualificationService.getAllQualifications(pageable);
+
+    @GetMapping("/companies/{companyId}/qualification")
+    public Page<QualificationResource> getAllQualificationsByCompanyId(@PathVariable(name = "companyId") Long companyId,
+                                                                       Pageable pageable) {
+        Page<Qualification> qualificationPage = qualificationService.getAllQualificationsByCompanyId(companyId, pageable);
         List<QualificationResource> resources = qualificationPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
 
-    @GetMapping("/qualifications/{id}")
-    public QualificationResource getQualificationById(
-            @PathVariable(name = "id") Long id) {
-        return convertToResource(qualificationService.getQualificationById(id));
-    }
 
+    @GetMapping("/users/{userId}/qualification")
+    public Page<QualificationResource> getAllQualificationsByUserId(@PathVariable(name = "userId") Long userId,
+                                                                    Pageable pageable) {
+        Page<Qualification> qualificationPage = qualificationService.getAllQualificationsByUserId(userId, pageable);
+        List<QualificationResource> resources = qualificationPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        return new PageImpl<>(resources, pageable, resources.size());
+    }
+    //editado
+
+    @GetMapping("/company/{companyId}/qualifications/{qualificationId}")
+    public QualificationResource getQualificationByIdAndCompanyId(
+            @PathVariable(name = "companyId") Long companyId,
+            @PathVariable(name = "qualificationId") Long qualificationId) {
+        return convertToResource(qualificationService.getQualificationByIdAndCompanyId(companyId,qualificationId));
+    }
+    //editado
+
+    @GetMapping("/user/{userId}/qualifications/{qualificationId}")
+    public QualificationResource getQualificationByIdAndUserId(
+            @PathVariable(name = "userId") Long userId,
+            @PathVariable(name = "qualificationId") Long qualificationId) {
+        return convertToResource(qualificationService.getQualificationByIdAndUserId(userId,qualificationId));
+    }
 
     @PostMapping("/qualifications")
     public QualificationResource createPost(@Valid @RequestBody SaveQualificationResource resource)  {
@@ -54,11 +75,6 @@ public class QualificationController {
     public ResponseEntity<?> deleteQualification(@PathVariable(name = "id") Long id) {
         return qualificationService.deleteQualification(id);
     }
-
-
-
-
-
 
     private Qualification convertToEntity(SaveQualificationResource resource) {
         return mapper.map(resource, Qualification.class);

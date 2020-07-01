@@ -24,35 +24,37 @@ public class InternshipController {
     @Autowired
     private InternshipService internshipService;
 
-    @GetMapping("/internships")
-    public Page<InternshipResource> getAllInternships(Pageable pageable){
-        Page<Internship> internshipsPage = internshipService.getAllInternships(pageable);
+    @GetMapping("companies/{companyId}/internships")
+    public Page<InternshipResource> getAllInternshipsByCompanyId(@PathVariable(name = "companyId") Long companyId,
+                                                                Pageable pageable){
+        Page<Internship> internshipsPage = internshipService.getAllInternshipsByCompanyId(companyId, pageable);
         List<InternshipResource> resources = internshipsPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
 
-    @GetMapping("/internships/{id}")
-    public InternshipResource getInternshipById(@PathVariable(name="id") Long internshipId){
-        return convertToResource(internshipService.getInternshipById(internshipId));
+    @GetMapping("companies/{companyId}/internships/{id}")
+    public InternshipResource getInternshipByIdAndCompanyId(@PathVariable(name = "companyId") Long companyId,
+                                                            @PathVariable(name="id") Long internshipId){
+        return convertToResource(internshipService.getInternshipByIdAndCompanyId(companyId, internshipId));
     }
 
-
-    @PostMapping("/internships")
-    public InternshipResource createInternship(@Valid @RequestBody SaveInternshipResource resource){
-        Internship internship = convertToEntity(resource);
-        return convertToResource(internshipService.createInternship(internship));
+    @PostMapping("companies/{companyId}/internships")
+    public InternshipResource createInternship(@PathVariable(name = "companyId") Long companyId,
+                                                @Valid @RequestBody SaveInternshipResource resource){
+        return convertToResource(internshipService.createInternship(companyId, convertToEntity(resource)));
     }
 
-    @PutMapping("/internships/{id}")
-    public InternshipResource updateInternship(@PathVariable(name = "id") Long internshipId,
-                                         @Valid @RequestBody SaveInternshipResource resource){
-        Internship internship = convertToEntity(resource);
-        return convertToResource(internshipService.updateInternship(internshipId, internship));
+    @PutMapping("companies/{companyId}/internships/{id}")
+    public InternshipResource updateInternship(@PathVariable(name = "companyId") Long companyId,
+                                                @PathVariable(name = "id") Long internshipId,
+                                                @Valid @RequestBody SaveInternshipResource resource){
+        return convertToResource(internshipService.updateInternship(companyId, internshipId, convertToEntity(resource)));
     }
 
-    @DeleteMapping("/internships/{id}")
-    public ResponseEntity<?> deleteInternship(@PathVariable(name = "id") Long internshipId){
-        return internshipService.deletePost(internshipId);
+    @DeleteMapping("companies/{companyId}/internships/{id}")
+    public ResponseEntity<?> deleteInternship(@PathVariable(name = "companyId") Long companyId,
+                                                @PathVariable(name = "id") Long internshipId){
+        return internshipService.deleteInternship(companyId, internshipId);
     }
 
     private Internship convertToEntity(SaveInternshipResource resource) { return mapper.map(resource, Internship.class); }

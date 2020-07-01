@@ -9,10 +9,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "requirement")
+@Table(name = "requirements")
 @Getter
 @Setter
-public class Requirement extends AuditModel{
+public class Requirement{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,7 +36,9 @@ public class Requirement extends AuditModel{
     @Size(max = 150)
     private String description;
 
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "intership_id", referencedColumnName = "id")
+    private Internship internship;
 
     public String getField() {
         return field;

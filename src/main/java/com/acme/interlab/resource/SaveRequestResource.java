@@ -1,6 +1,5 @@
 package com.acme.interlab.resource;
 
-import com.acme.interlab.model.AuditModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,9 +9,10 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-public class RequirementResource{
-    private String field;
-    private String semester;
-    private String degree;
-    private String description;
+public class SaveRequestResource
+{
+    @NotNull
+    @NotBlank
+    @Size(max = 20)
+    private String state;
 }

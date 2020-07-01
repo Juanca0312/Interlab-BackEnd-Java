@@ -4,11 +4,14 @@ import com.acme.interlab.model.AuditModel;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
-public class QualificationResource {
+public class DocumentResource{
     private Long id;
-    private double score;
-    private String comment;
-    private String author;
+    private String name;
+    private String description;
+
+
 }

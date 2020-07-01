@@ -1,7 +1,10 @@
 package com.acme.interlab.controller;
 
+import com.acme.interlab.model.Profile;
 import com.acme.interlab.model.Requirement;
+import com.acme.interlab.resource.ProfileResource;
 import com.acme.interlab.resource.RequirementResource;
+import com.acme.interlab.resource.SaveProfileResource;
 import com.acme.interlab.resource.SaveRequirementResource;
 import com.acme.interlab.service.RequirementService;
 import org.modelmapper.ModelMapper;
@@ -25,8 +28,16 @@ public class RequirementController {
     @Autowired
     private RequirementService requirementService;
 
+    @GetMapping("/requirements")
     public Page<RequirementResource> getAllRequirements(Pageable pageable) {
         Page<Requirement> requirementPage = requirementService.getAllRequirements(pageable);
+        List<RequirementResource> resources = requirementPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        return new PageImpl<>(resources, pageable, resources.size());
+    }
+
+    @GetMapping("internships/{internshipId}/requirement")
+    public Page<RequirementResource> getRequirementsByInternshipId(@PathVariable(name = "internshipId") Long internshipId, Pageable pageable) {
+        Page<Requirement> requirementPage = requirementService.getAllRequirementsByInternshipId(internshipId, pageable);
         List<RequirementResource> resources = requirementPage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
         return new PageImpl<>(resources, pageable, resources.size());
     }
@@ -38,24 +49,24 @@ public class RequirementController {
     }
 
 
-    @PostMapping("/requirements")
-    public RequirementResource createPost(@Valid @RequestBody SaveRequirementResource resource)  {
+    @PostMapping("/internships/{internshipId}/requirements")
+    public RequirementResource createRequirement(@PathVariable(name = "internshipId") Long internshipId, @Valid @RequestBody SaveRequirementResource resource) {
         Requirement requirement = convertToEntity(resource);
-        return convertToResource(requirementService.createRequirement(requirement));
+        return convertToResource(requirementService.createRequirement(internshipId, requirement));
     }
 
-    @PutMapping("/requirement/{id}")
-    public RequirementResource updatePost(@PathVariable(name = "id") Long id, @Valid @RequestBody SaveRequirementResource resource) {
-        Requirement requirement = convertToEntity(resource);
-        return convertToResource(requirementService.updateRequirement(id, requirement));
+    @PutMapping("internships/{internshipId}/requirements/{id}")
+    public RequirementResource updateRequirement(@PathVariable(name = "internshipId") Long internshipId,
+                                         @PathVariable(name = "id") Long requirementId,
+                                         @Valid @RequestBody SaveRequirementResource resource) {
+        return convertToResource(requirementService.updateRequirement(internshipId, requirementId, convertToEntity(resource)));
     }
 
-    @DeleteMapping("/requirements/{id}")
-    public ResponseEntity<?> deleteRequirement(@PathVariable(name = "id") Long id) {
-        return requirementService.deleteRequirement(id);
+    @DeleteMapping("internships/{internshipId}/requirements/{id}")
+    public ResponseEntity<?> deleteRequirement(@PathVariable(name = "internshipId") Long internshipId,
+                                           @PathVariable(name = "id") Long requirementId) {
+        return requirementService.deleteRequirement(internshipId, requirementId);
     }
-
-
 
 
 

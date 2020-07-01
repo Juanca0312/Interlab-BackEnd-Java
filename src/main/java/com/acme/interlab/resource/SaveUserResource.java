@@ -10,13 +10,19 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 public class SaveUserResource {
-    @NotNull
-    @NotBlank
-    @Size(max = 20)
-    private String Username;
 
     @NotNull
     @NotBlank
     @Size(max = 20)
-    private String Password;
+    private String username;
+
+    @NotNull
+    @NotBlank
+    @Size(max = 20)
+    private String password;
+
+    @NotNull
+    @NotBlank
+    @Size(max = 20)
+    private String email;
 }

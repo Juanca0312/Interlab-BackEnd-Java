@@ -10,9 +10,9 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-public class RequirementResource{
-    private String field;
-    private String semester;
-    private String degree;
-    private String description;
+public class RequestResource {
+
+    private long id;
+    private String state;
+
 }

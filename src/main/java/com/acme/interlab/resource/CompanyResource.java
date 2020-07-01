@@ -6,15 +6,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CompanyResource extends AuditModel {
-    private long Id;
-    private String Name;
-    private String Description;
-    private String Sector;
-    private String Mail;
-    private String Phone_number;
-    private String Address;
-    private String Country;
-    private String City;
-
+public class CompanyResource{
+    private Long id;
+    private String name;
+    private String description;
+    private String sector;
+    private String email;
+    private String phone;
+    private String address;
+    private String country;
+    private String city;
 }

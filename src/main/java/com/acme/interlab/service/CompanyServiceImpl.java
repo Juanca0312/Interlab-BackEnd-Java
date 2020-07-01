@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CompanyServiceImpl implements  CompanyService{
+public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
     private CompanyRepository companyRepository;
@@ -24,66 +24,9 @@ public class CompanyServiceImpl implements  CompanyService{
     private UserRepository userRepository;
 
     @Override
-    public ResponseEntity<?> deleteCompany(Long companyId) {
-        Company company = companyRepository.findById(companyId)
-                .orElseThrow(() -> new ResourceNotFoundException("Company", "Id", companyId));
-        companyRepository.delete(company);
-        return ResponseEntity.ok().build();
-    }
-
-    @Override
-    public Company updateCompany(Long companyId, Company companyRequest) {
-        Company company = companyRepository.findById(companyId)
-                .orElseThrow(() -> new ResourceNotFoundException("Company", "Id", companyId));
-        company.setName(companyRequest.getName());
-        company.setDescription(companyRequest.getDescription());
-        company.setSector(companyRequest.getSector());
-        company.setMail(companyRequest.getMail());
-        company.setPhone_number(companyRequest.getPhone_number());
-        company.setAddress(companyRequest.getAddress());
-        company.setCountry(companyRequest.getCountry());
-        company.setCity(companyRequest.getCity());
-        return companyRepository.save(company);
-    }
-
-    @Override
-    public Company createCompany(Company company) {
-        return companyRepository.save(company);
-    }
-
-    @Override
-    public Company getCompanyById(Long companyId) {
-        return companyRepository.findById(companyId)
-                .orElseThrow(() -> new ResourceNotFoundException("company", "Id", companyId));
-    }
-
-    @Override
     public Page<Company> getAllCompanies(Pageable pageable) {
         return companyRepository.findAll(pageable);
     }
-
-    @Override
-    public Company assignCompanyUser(Long companyId, Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(()-> new ResourceNotFoundException("User", "Id", userId));
-        return companyRepository.findById(companyId).map(company ->{
-            if(!company.getUsers().contains(user)){
-                company.getUsers().add(user);
-            }
-            return company;
-        }).orElseThrow(() -> new ResourceNotFoundException("Company", "Id", companyId));
-    }
-
-    @Override
-    public Company unassignCompanyUser(Long companyId, Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
-        return companyRepository.findById(companyId).map(company -> {
-            company.getUsers().remove(user);
-            return companyRepository.save(company);
-        }).orElseThrow(() -> new ResourceNotFoundException("Company", "Id", companyId));
-    }
-
 
     @Override
     public Page<Company> getAllCompaniesByUserId(Long userId, Pageable pageable) {
@@ -95,6 +38,38 @@ public class CompanyServiceImpl implements  CompanyService{
                 .orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
     }
 
+    @Override
+    public Company getCompanyById(Long companyId) {
+        return companyRepository.findById(companyId)
+                .orElseThrow(() -> new ResourceNotFoundException("company", "Id", companyId));
+    }
 
+    @Override
+    public Company createCompany(Company company) {
+        return companyRepository.save(company);
+    }
+
+    @Override
+    public Company updateCompany(Long companyId, Company companyDetails) {
+        return companyRepository.findById(companyId).map(company -> {
+            company.setName(companyDetails.getName());
+            company.setDescription(companyDetails.getDescription());
+            company.setSector(companyDetails.getSector());
+            company.setEmail(companyDetails.getEmail());
+            company.setPhone(companyDetails.getPhone());
+            company.setAddress(companyDetails.getAddress());
+            company.setCountry(companyDetails.getCountry());
+            company.setCity(companyDetails.getCity());
+            return companyRepository.save(company);
+        }).orElseThrow(() -> new ResourceNotFoundException("Company", "Id", companyId));
+    }
+
+    @Override
+    public ResponseEntity<?> deleteCompany(Long companyId) {
+        return companyRepository.findById(companyId).map(company -> {
+            companyRepository.delete(company);
+            return ResponseEntity.ok().build();
+        }).orElseThrow(() -> new ResourceNotFoundException("Company", "Id", companyId));
+    }
 
 }
