@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class QualificationResource extends AuditModel {
+public class QualificationResource {
     private Long id;
     private double score;
     private String comment;

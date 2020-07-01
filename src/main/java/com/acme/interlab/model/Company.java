@@ -17,8 +17,7 @@ import java.util.List;
 @Table(name = "companies")
 @EntityListeners(AuditingEntityListener.class)
 @Data
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
-public class Company implements Serializable {
+public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -2,6 +2,7 @@ package com.acme.interlab.service;
 
 import com.acme.interlab.exception.ResourceNotFoundException;
 import com.acme.interlab.model.Company;
+import com.acme.interlab.model.Internship;
 import com.acme.interlab.model.Request;
 import com.acme.interlab.model.User;
 import com.acme.interlab.repository.CompanyRepository;
@@ -123,24 +124,20 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User assignUserInternship(Long userId, Long internshipId, Long requestId) {
-        Request request = requestRepository.findById(requestId)
-                .orElseThrow(() -> new ResourceNotFoundException("Request", "Id",requestId));
-        internshipRepository.findById(internshipId).map(internship -> {
-            if(!internship.getRequests().contains(request)) {
-                internship.getRequests().add(request);
-                internshipRepository.save(internship);
-            }
-            return internship;
-        }).orElseThrow(() -> new ResourceNotFoundException("Internship", "Id", internshipId));
+    public User assignUserInternship(Long userId, Long internshipId) {
+        Internship internship = internshipRepository.findById(internshipId)
+                .orElseThrow(() -> new ResourceNotFoundException("Internship", "Id",internshipId));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Internship", "Id", internshipId));
 
-        return userRepository.findById(userId).map(user -> {
-            if(!user.getRequests().contains(request)){
-                user.getRequests().add(request);
-                return userRepository.save(user);
-            }
-            return user;
-        }).orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
+        Request request1 = new Request();
+        request1.setState("Pending");
+        request1.setUser(user);
+        request1.setInternship(internship);
+        user.getRequests().add(request1);
+        internship.getRequests().add(request1);
+        requestRepository.save(request1);
+        return user;
     }
 
 
