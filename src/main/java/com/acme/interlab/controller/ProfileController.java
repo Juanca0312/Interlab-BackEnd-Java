@@ -3,6 +3,7 @@ package com.acme.interlab.controller;
 import com.acme.interlab.model.Profile;
 import com.acme.interlab.resource.ProfileResource;
 import com.acme.interlab.resource.SaveProfileResource;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import com.acme.interlab.service.ProfileService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,6 @@ public class ProfileController {
     private ProfileService profileService;
 
     //Get all profiles
-    @CrossOrigin
     @GetMapping("/profiles")
     public Page<ProfileResource> getAllProfiles(Pageable pageable) {
         Page<Profile> profilesPage = profileService.getAllProfiles(pageable);
@@ -36,14 +36,12 @@ public class ProfileController {
     }
 
     //Get profiles by id
-    @CrossOrigin
     @GetMapping("/profiles/{id}")
     public ProfileResource getProfileById(@PathVariable(name = "id") Long profileId) {
         return convertToResource(profileService.getProfileById(profileId));
     }
 
     //Get by UserId
-    @CrossOrigin
     @GetMapping("users/{userId}/profiles")
     public Page<ProfileResource> getProfileByUserId(@PathVariable(name = "userId") Long userId, Pageable pageable) {
         Page<Profile> profilePage = profileService.getAllProfilesByUserId(userId, pageable);
@@ -52,7 +50,6 @@ public class ProfileController {
     }
 
     //Create
-    @CrossOrigin
     @PostMapping("/users/{userId}/profiles")
     public ProfileResource createProfile(@PathVariable(name = "userId") Long userId, @Valid @RequestBody SaveProfileResource resource) {
         Profile profile = convertToEntity(resource);
@@ -60,7 +57,6 @@ public class ProfileController {
     }
 
     //Update
-    @CrossOrigin
     @PutMapping("users/{userId}/profiles/{id}")
     public ProfileResource updateProfile(@PathVariable(name = "userId") Long userId,
                                          @PathVariable(name = "id") Long profileId,
@@ -69,7 +65,6 @@ public class ProfileController {
     }
 
     //Eliminar
-    @CrossOrigin
     @DeleteMapping("users/{userId}/profiles/{id}")
     public ResponseEntity<?> deleteProfile(@PathVariable(name = "userId") Long userId,
                                             @PathVariable(name = "id") Long profileId) {

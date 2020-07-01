@@ -4,6 +4,7 @@ import com.acme.interlab.model.Qualification;
 import com.acme.interlab.resource.QualificationResource;
 import com.acme.interlab.resource.SaveQualificationResource;
 import com.acme.interlab.service.QualificationService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

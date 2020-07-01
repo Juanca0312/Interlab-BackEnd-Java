@@ -4,6 +4,7 @@ package com.acme.interlab.controller;
 import com.acme.interlab.model.Document;
 import com.acme.interlab.resource.DocumentResource;
 import com.acme.interlab.resource.SaveDocumentResource;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import com.acme.interlab.service.DocumentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
