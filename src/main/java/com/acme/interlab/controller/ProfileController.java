@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/api")
 @CrossOrigin
+@RequestMapping("/api")
 public class ProfileController {
     @Autowired
     private ModelMapper mapper;
