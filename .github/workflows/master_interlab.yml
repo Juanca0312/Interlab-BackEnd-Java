@@ -28,5 +28,5 @@ jobs:
       with:
         app-name: 'interlab'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_6ad147c96dc346ffa90f8cdc57bf4eb8 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_88b4b86909ce4c92b96b64ee4c607ad8 }}
         package: '${{ github.workspace }}/target/*.jar'
