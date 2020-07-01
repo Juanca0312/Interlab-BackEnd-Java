@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 @Table(name = "profiles")
 @Getter
 @Setter
-public class Profile extends AuditModel{
+public class Profile{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -67,7 +67,6 @@ public class Profile extends AuditModel{
     private String degree;
 
     @NotNull
-    @NotBlank
     private int semester;
 
     //Relationships

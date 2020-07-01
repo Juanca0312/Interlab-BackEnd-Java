@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Table(name= "requests")
 @Getter
 @Setter
-public class Request implements Serializable {
+public class Request{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

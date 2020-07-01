@@ -64,6 +64,5 @@ public class SaveProfileResource {
     private String degree;
 
     @NotNull
-    @NotBlank
     private int semester;
 }

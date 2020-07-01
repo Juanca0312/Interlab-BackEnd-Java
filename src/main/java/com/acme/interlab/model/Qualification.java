@@ -17,7 +17,7 @@ import java.util.Date;
 @Getter
 @Setter
 
-public class Qualification extends AuditModel {
+public class Qualification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

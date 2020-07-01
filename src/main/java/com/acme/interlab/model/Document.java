@@ -18,7 +18,7 @@ import java.util.Date;
 @Table(name = "documents")
 @EntityListeners(AuditingEntityListener.class)
 @Data
-public class Document extends AuditModel {
+public class Document {
 
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)

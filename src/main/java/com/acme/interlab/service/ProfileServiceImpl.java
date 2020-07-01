@@ -2,6 +2,7 @@ package com.acme.interlab.service;
 
 import com.acme.interlab.exception.ResourceNotFoundException;
 import com.acme.interlab.model.Profile;
+import com.acme.interlab.model.User;
 import com.acme.interlab.repository.ProfileRepository;
 import com.acme.interlab.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
@@ -42,6 +45,11 @@ public class ProfileServiceImpl implements ProfileService {
             profile.setDescription(profileRequest.getDescription());
             profile.setCountry(profileRequest.getCountry());
             profile.setCity(profileRequest.getCity());
+            if(profileRequest.getRole().equals("student")) {
+                profile.setDegree(profileRequest.getDegree());
+                profile.setUniversity(profileRequest.getUniversity());
+                profile.setSemester(profileRequest.getSemester());
+            }
             return profileRepository.save(profile);
         }).orElseThrow(() -> new ResourceNotFoundException("Profile", "Id", profileId));
 

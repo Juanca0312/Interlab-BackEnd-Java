@@ -80,11 +80,10 @@ public class UserController {
         return convertToResource(userService.unAssignUserCompany(userId, companyId));
     }
 
-    @PostMapping("/users/{userId}/internship/{internshipId}/request/{requestId}")
+    @PostMapping("/users/{userId}/internships/{internshipId}")
     public UserResource assignUserInternship(@PathVariable(name = "userId") Long userId,
-                                          @PathVariable(name = "internshipId") Long internshipId,
-                                             @PathVariable(name = "requestId") Long requestId) {
-        return convertToResource(userService.assignUserInternship(userId, internshipId, requestId));
+                                          @PathVariable(name = "internshipId") Long internshipId) {
+        return convertToResource(userService.assignUserInternship(userId, internshipId));
     }
 
     @DeleteMapping("/users/{userId}/internship/{internshipId}/request/{requestId}")

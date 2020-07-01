@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-public class RequestResource extends AuditModel {
+public class RequestResource {
 
     private long id;
     private String state;

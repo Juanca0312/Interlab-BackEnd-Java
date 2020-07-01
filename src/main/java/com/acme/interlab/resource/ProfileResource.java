@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-public class ProfileResource extends AuditModel {
+public class ProfileResource {
     private Long id;
     private String role;
     private String firstName;

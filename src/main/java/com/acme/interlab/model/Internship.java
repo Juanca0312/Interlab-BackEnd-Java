@@ -10,14 +10,14 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
 @Table(name="internships")
 @EntityListeners(AuditingEntityListener.class)
 @Data
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
-public class Internship implements Serializable {
+public class Internship{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,23 +28,24 @@ public class Internship implements Serializable {
     @NotBlank
     private String description;
 
-    private Date publicationDate;
 
     @NotBlank
-    private Date startingDate;
+    private String startingDate;
 
     @NotBlank
-    private Date finishingDate;
+    private String finishingDate;
 
-    private double salary;
+    @NotNull
+    private int salary;
 
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createAt;
+    @NotNull
+    private String location;
 
-    @Column(nullable = false)
-    private Date updatedAt;
+    @NotNull
+    private String jobTile;
 
+    @NotNull
+    private String requiredDocuments;
 
     @OneToOne(mappedBy = "internship")
     private Requirement requirement;

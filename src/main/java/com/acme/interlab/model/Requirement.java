@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 @Table(name = "requirements")
 @Getter
 @Setter
-public class Requirement extends AuditModel{
+public class Requirement{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
