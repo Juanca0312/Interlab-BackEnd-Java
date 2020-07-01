@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @Tag(name = "companies", description = "Companies API")
 @RestController
 @RequestMapping(value ="/api")
+@CrossOrigin
 public class CompanyController {
 
     @Autowired

@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value ="/api")
+@CrossOrigin
 public class InternshipController {
     @Autowired
     private ModelMapper mapper;
