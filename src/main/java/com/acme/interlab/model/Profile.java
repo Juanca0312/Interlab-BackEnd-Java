@@ -33,12 +33,10 @@ public class Profile{
     private String lastName;
 
     @NotNull
-    @NotBlank
     @Size(max = 100)
     private String field;
 
     @NotNull
-    @NotBlank
     @Size(max = 10)
     private String phone;
 
@@ -47,26 +45,21 @@ public class Profile{
     private String description;
 
     @NotNull
-    @NotBlank
     @Size(max = 100)
     private String country;
 
     @NotNull
-    @NotBlank
     @Size(max = 100)
     private String city;
 
     @NotNull
-    @NotBlank
     @Size(max = 100)
     private String university;
 
     @NotNull
-    @NotBlank
     @Size(max = 100)
     private String degree;
 
-    @NotNull
     private int semester;
 
     //Relationships
