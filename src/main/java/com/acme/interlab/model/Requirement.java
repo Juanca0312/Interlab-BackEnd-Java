@@ -33,7 +33,7 @@ public class Requirement{
 
     @NotNull
     @NotBlank
-    @Size(max = 150)
+    @Lob
     private String description;
 
     @OneToOne(cascade = CascadeType.ALL)

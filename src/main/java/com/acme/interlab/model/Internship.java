@@ -15,24 +15,23 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="internships")
-@EntityListeners(AuditingEntityListener.class)
 @Data
 public class Internship{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotNull
     private String state;
 
-    @NotBlank
+    @NotNull
+    @Lob
     private String description;
 
-
-    @NotBlank
+    @NotNull
     private String startingDate;
 
-    @NotBlank
+    @NotNull
     private String finishingDate;
 
     @NotNull
@@ -42,9 +41,8 @@ public class Internship{
     private String location;
 
     @NotNull
-    private String jobTile;
+    private String jobTitle;
 
-    @NotNull
     private String requiredDocuments;
 
     @OneToOne(mappedBy = "internship")

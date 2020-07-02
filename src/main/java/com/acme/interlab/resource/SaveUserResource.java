@@ -13,16 +13,16 @@ public class SaveUserResource {
 
     @NotNull
     @NotBlank
-    @Size(max = 20)
+    @Size(max = 30)
     private String username;
 
     @NotNull
     @NotBlank
-    @Size(max = 20)
+    @Size(max = 30)
     private String password;
 
     @NotNull
     @NotBlank
-    @Size(max = 20)
+    @Size(max = 60)
     private String email;
 }

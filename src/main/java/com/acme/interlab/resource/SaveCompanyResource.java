@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -14,13 +15,13 @@ public class SaveCompanyResource {
 
     @NotNull
     @NotBlank
-    @Size(max = 30)
+    @Size(max = 40)
     @Column(unique = true)
     private String name;
 
     @NotNull
     @NotBlank
-    @Size(max = 100)
+    @Lob
     private String description;
 
     @NotNull
@@ -30,7 +31,7 @@ public class SaveCompanyResource {
 
     @NotNull
     @NotBlank
-    @Size(max = 30)
+    @Size(max = 60)
     private String email;
 
     @NotNull
@@ -40,16 +41,16 @@ public class SaveCompanyResource {
 
     @NotNull
     @NotBlank
-    @Size(max = 30)
+    @Size(max = 70)
     private String address;
 
     @NotNull
     @NotBlank
-    @Size(max = 20)
+    @Size(max = 30)
     private String country;
 
     @NotNull
     @NotBlank
-    @Size(max = 20)
+    @Size(max = 30)
     private String city;
 }

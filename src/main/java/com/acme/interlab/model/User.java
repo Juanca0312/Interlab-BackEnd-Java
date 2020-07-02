@@ -32,7 +32,7 @@ public class User {
 
     @NotNull
     @NotBlank
-    @Size(max = 30)
+    @Size(max = 60)
     private String email;
 
     //Relationships:
