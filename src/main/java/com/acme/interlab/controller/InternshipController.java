@@ -3,6 +3,7 @@ package com.acme.interlab.controller;
 import com.acme.interlab.model.Internship;
 import com.acme.interlab.resource.InternshipResource;
 import com.acme.interlab.resource.SaveInternshipResource;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import com.acme.interlab.service.InternshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

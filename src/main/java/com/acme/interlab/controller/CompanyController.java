@@ -3,6 +3,7 @@ package com.acme.interlab.controller;
 import com.acme.interlab.model.Company;
 
 import com.acme.interlab.resource.CompanyResource;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import com.acme.interlab.resource.SaveCompanyResource;
 import com.acme.interlab.service.CompanyService;
 

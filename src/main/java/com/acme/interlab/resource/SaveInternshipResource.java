@@ -3,6 +3,7 @@ package com.acme.interlab.resource;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -11,17 +12,17 @@ import java.util.Date;
 @Setter
 public class SaveInternshipResource {
 
-    @NotBlank
+    @NotNull
     private String state;
 
-    @NotBlank
+    @NotNull
+    @Lob
     private String description;
 
-
-    @NotBlank
+    @NotNull
     private String startingDate;
 
-    @NotBlank
+    @NotNull
     private String finishingDate;
 
     @NotNull
@@ -31,8 +32,7 @@ public class SaveInternshipResource {
     private String location;
 
     @NotNull
-    private String jobTile;
+    private String jobTitle;
 
-    @NotNull
     private String requiredDocuments;
 }

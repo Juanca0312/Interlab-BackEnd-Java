@@ -18,4 +18,5 @@ public class InterlabApplication {
 
     @Bean
     public ModelMapper modelMapper() { return new ModelMapper(); }
+
 }

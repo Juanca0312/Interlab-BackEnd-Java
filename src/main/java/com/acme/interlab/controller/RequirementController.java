@@ -7,6 +7,7 @@ import com.acme.interlab.resource.RequirementResource;
 import com.acme.interlab.resource.SaveProfileResource;
 import com.acme.interlab.resource.SaveRequirementResource;
 import com.acme.interlab.service.RequirementService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

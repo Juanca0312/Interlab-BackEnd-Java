@@ -24,13 +24,13 @@ public class Company {
 
     @NotNull
     @NotBlank
-    @Size(max = 20)
+    @Size(max = 40)
     @Column(unique = true)
     private String name;
 
     @NotNull
     @NotBlank
-    @Size(max = 100)
+    @Lob
     private String description;
 
     @NotNull
@@ -40,7 +40,7 @@ public class Company {
 
     @NotNull
     @NotBlank
-    @Size(max = 30)
+    @Size(max = 60)
     private String email;
 
     @NotNull
@@ -50,7 +50,7 @@ public class Company {
 
     @NotNull
     @NotBlank
-    @Size(max = 30)
+    @Size(max = 70)
     private String address;
 
     @NotNull
