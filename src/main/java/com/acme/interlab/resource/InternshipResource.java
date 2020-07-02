@@ -18,7 +18,7 @@ public class InternshipResource{
     private String finishingDate;
     private int salary;
     private String location;
-    private String jobTile;
+    private String jobTitle;
     private String requiredDocuments;
 
 }
