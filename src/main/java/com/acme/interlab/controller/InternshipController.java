@@ -59,6 +59,13 @@ public class InternshipController {
         return internshipService.deleteInternship(companyId, internshipId);
     }
 
+    @GetMapping("/users/{userId}/internships")
+    public Page<InternshipResource> getAllInternshipsByUserId(@PathVariable(name = "userId") Long userId, Pageable pageable) {
+        List<InternshipResource> internships = internshipService.getAllInternshipsByUserId(userId, pageable).getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        int internshipsSize = internships.size();
+        return new PageImpl<>(internships, pageable, internshipsSize);
+    }
+
     private Internship convertToEntity(SaveInternshipResource resource) { return mapper.map(resource, Internship.class); }
 
     private InternshipResource convertToResource(Internship entity) { return mapper.map(entity, InternshipResource.class); }

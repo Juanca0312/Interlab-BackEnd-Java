@@ -1,5 +1,6 @@
 package com.acme.interlab.service;
 
+import com.acme.interlab.model.Company;
 import com.acme.interlab.model.Internship;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,4 +12,5 @@ public interface InternshipService {
     Internship createInternship(Long companyId, Internship internship);
     Internship updateInternship(Long companyId, Long internshipId, Internship internshipDetails);
     ResponseEntity<?> deleteInternship(Long companyId, Long internshipId);
+    Page<Internship> getAllInternshipsByUserId(Long userId, Pageable pageable);
 }
