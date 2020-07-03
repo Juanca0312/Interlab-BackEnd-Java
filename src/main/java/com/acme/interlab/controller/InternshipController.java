@@ -1,6 +1,7 @@
 package com.acme.interlab.controller;
 
 import com.acme.interlab.model.Internship;
+import com.acme.interlab.resource.CompanyResource;
 import com.acme.interlab.resource.InternshipResource;
 import com.acme.interlab.resource.SaveInternshipResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -64,6 +65,14 @@ public class InternshipController {
         List<InternshipResource> internships = internshipService.getAllInternshipsByUserId(userId, pageable).getContent().stream().map(this::convertToResource).collect(Collectors.toList());
         int internshipsSize = internships.size();
         return new PageImpl<>(internships, pageable, internshipsSize);
+    }
+
+    @GetMapping("/internships")
+    public Page<InternshipResource> getAllInternships(Pageable pageable) {
+        List<InternshipResource> internships = internshipService.getAllInternships(pageable)
+                .getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        int internshipCount = internships.size();
+        return new PageImpl<>(internships, pageable, internshipCount);
     }
 
     private Internship convertToEntity(SaveInternshipResource resource) { return mapper.map(resource, Internship.class); }
