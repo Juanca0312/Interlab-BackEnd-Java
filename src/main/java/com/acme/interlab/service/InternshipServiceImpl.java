@@ -33,6 +33,11 @@ public class InternshipServiceImpl implements InternshipService {
     private RequestRepository requestRepository;
 
     @Override
+    public Page<Internship> getAllInternships(Pageable pageable) {
+        return internshipRepository.findAll(pageable);
+    }
+
+    @Override
     public Page<Internship> getAllInternshipsByCompanyId(Long companyId, Pageable pageable) {
         return internshipRepository.findByCompanyId(companyId, pageable);
     }
