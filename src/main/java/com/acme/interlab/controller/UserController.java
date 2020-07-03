@@ -1,8 +1,12 @@
 package com.acme.interlab.controller;
 
 import com.acme.interlab.model.User;
+import com.acme.interlab.resource.CompanyResource;
+import com.acme.interlab.resource.InternshipResource;
 import com.acme.interlab.resource.SaveUserResource;
 import com.acme.interlab.resource.UserResource;
+import com.acme.interlab.service.InternshipService;
+import com.acme.interlab.service.InternshipServiceImpl;
 import com.acme.interlab.service.UserService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,6 +34,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private InternshipService internshipService;
 
     @GetMapping("/users")
     public Page<UserResource> getAllUsers(Pageable pageable){
@@ -86,6 +93,8 @@ public class UserController {
                                           @PathVariable(name = "internshipId") Long internshipId) {
         return convertToResource(userService.assignUserInternship(userId, internshipId));
     }
+
+
 
     @DeleteMapping("/users/{userId}/internship/{internshipId}/request/{requestId}")
     public UserResource unAssignUserInternship(@PathVariable(name = "userId") Long userId,
