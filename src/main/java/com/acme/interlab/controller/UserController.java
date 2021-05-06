@@ -35,9 +35,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private InternshipService internshipService;
-
     @GetMapping("/users")
     public Page<UserResource> getAllUsers(Pageable pageable){
         Page<User> usersPage = userService.getAllUsers(pageable);

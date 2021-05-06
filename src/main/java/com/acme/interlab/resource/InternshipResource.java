@@ -1,16 +1,9 @@
 package com.acme.interlab.resource;
 
-import com.acme.interlab.model.AuditModel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
-
-@Getter
-@Setter
-public class InternshipResource{
+@Data
+public class InternshipResource {
     private Long id;
     private String state;
     private String description;
@@ -20,5 +13,4 @@ public class InternshipResource{
     private String location;
     private String jobTitle;
     private String requiredDocuments;
-
 }

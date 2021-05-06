@@ -12,5 +12,4 @@ public interface ProfileService {
     Profile getProfileById(Long profileId);
     Page<Profile> getAllProfiles(Pageable pageable);
     Page<Profile> getAllProfilesByUserId(Long userId, Pageable pageable);
-
 }

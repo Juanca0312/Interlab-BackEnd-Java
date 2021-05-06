@@ -1,8 +1,7 @@
 package com.acme.interlab.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -12,8 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
+@Data
 public class User {
 
     @Id
@@ -27,17 +25,15 @@ public class User {
 
     @NotNull
     @NotBlank
-    @Size(max = 30)
+    @Size(max = 70)
     private String password;
 
-    @NotNull
-    @NotBlank
-    @Size(max = 60)
-    private String email;
+    private String role;
 
-    //Relationships:
-    @OneToOne(mappedBy = "user")
-            private Profile profile;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_id", referencedColumnName = "id")
+    @JsonIgnore
+    private Profile profile;
 
     @OneToMany(mappedBy = "user")
     List<Request> requests;
@@ -49,5 +45,4 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "company_id")})
     @JsonIgnore
     List<Company> companies;
-
 }

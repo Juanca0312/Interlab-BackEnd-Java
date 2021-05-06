@@ -1,23 +1,20 @@
 package com.acme.interlab.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
 
 @Entity
 @Table(name = "qualifications")
-@Getter
-@Setter
-
+@Data
 public class Qualification {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -47,22 +44,4 @@ public class Qualification {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;
-
-    public double getScore() {
-        return score;
-    }
-    public String getComment() {return comment;}
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setScore(double score) {
-        this.score = score;
-    }
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-    public void setAuthor(String author) {
-        this.author = author;
-    }
 }

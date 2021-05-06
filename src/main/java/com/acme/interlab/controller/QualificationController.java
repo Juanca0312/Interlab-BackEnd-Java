@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 @CrossOrigin
 @RequestMapping("/api")
 public class QualificationController {
+
     @Autowired
     private ModelMapper mapper;
 

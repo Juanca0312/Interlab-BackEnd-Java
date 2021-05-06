@@ -6,7 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 public interface RequestService {
-
     Page<Request> getAllRequests(Pageable pageable);
     Page<Request> getAllRequestsByUserId(Long userId, Pageable pageable);
 

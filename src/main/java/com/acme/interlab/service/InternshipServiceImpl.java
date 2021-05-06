@@ -1,13 +1,11 @@
 package com.acme.interlab.service;
 
 import com.acme.interlab.exception.ResourceNotFoundException;
-import com.acme.interlab.model.Company;
 import com.acme.interlab.model.Internship;
 import com.acme.interlab.model.Request;
 import com.acme.interlab.repository.CompanyRepository;
 import com.acme.interlab.repository.InternshipRepository;
 import com.acme.interlab.repository.RequestRepository;
-import com.acme.interlab.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,9 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 
 @Service
 public class InternshipServiceImpl implements InternshipService {

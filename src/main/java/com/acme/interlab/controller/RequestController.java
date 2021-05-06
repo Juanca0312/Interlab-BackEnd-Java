@@ -23,11 +23,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class RequestController {
 
-
-@Autowired
+    @Autowired
     private ModelMapper mapper;
 
-@Autowired
+    @Autowired
     private RequestService requestService;
 
 
