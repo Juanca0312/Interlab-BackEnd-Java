@@ -1,23 +1,19 @@
 package com.acme.interlab.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "companies")
-@EntityListeners(AuditingEntityListener.class)
 @Data
 public class Company {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -63,14 +59,9 @@ public class Company {
     @Size(max = 30)
     private String city;
 
-
-    //Relationships:
-
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             mappedBy = "companies")
     @JsonIgnore
     private List<User> users;
-
-
 }

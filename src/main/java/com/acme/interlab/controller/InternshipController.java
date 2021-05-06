@@ -22,8 +22,10 @@ import java.util.stream.Collectors;
 @CrossOrigin
 @RequestMapping(value ="/api")
 public class InternshipController {
+
     @Autowired
     private ModelMapper mapper;
+
     @Autowired
     private InternshipService internshipService;
 

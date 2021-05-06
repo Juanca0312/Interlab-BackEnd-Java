@@ -1,11 +1,8 @@
 package com.acme.interlab.resource;
 
-import com.acme.interlab.model.AuditModel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class QualificationResource {
     private Long id;
     private double score;

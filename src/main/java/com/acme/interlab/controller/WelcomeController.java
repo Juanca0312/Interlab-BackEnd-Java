@@ -1,16 +1,18 @@
 package com.acme.interlab.controller;
 
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-class HtmlController {
-    @GetMapping(value = "/welcome", produces = MediaType.TEXT_HTML_VALUE)
-    @ResponseBody
-    public String welcomeAsHTML() {
-        return "<html>\n" + "<header><title>Welcome</title></header>\n" +
-                "<body>\n" + "Interlab REST API\n" + "</body>\n" + "</html>";
+@CrossOrigin
+public class WelcomeController {
+
+    @GetMapping("/")
+    public String home(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
+        model.addAttribute("name", name);
+        return "home";
     }
 }

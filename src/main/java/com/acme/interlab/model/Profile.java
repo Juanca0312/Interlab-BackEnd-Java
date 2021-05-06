@@ -1,7 +1,7 @@
 package com.acme.interlab.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -10,9 +10,9 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "profiles")
-@Getter
-@Setter
-public class Profile{
+@Data
+public class Profile {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,6 +41,11 @@ public class Profile{
     private String phone;
 
     @NotNull
+    @NotBlank
+    @Size(max = 50)
+    private String email;
+
+    @NotNull
     @Lob
     private String description;
 
@@ -62,10 +67,7 @@ public class Profile{
 
     private int semester;
 
-    //Relationships
-    //User One To One
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "profile")
+    @JsonIgnore
     private User user;
-
 }

@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 @CrossOrigin
 @RequestMapping("/api")
 public class RequirementController {
+
     @Autowired
     private ModelMapper mapper;
 

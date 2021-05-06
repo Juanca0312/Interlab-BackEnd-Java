@@ -1,18 +1,9 @@
 package com.acme.interlab.resource;
 
-import com.acme.interlab.model.AuditModel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-@Getter
-@Setter
+@Data
 public class RequestResource {
-
-    private long id;
+    private Long id;
     private String state;
-
 }

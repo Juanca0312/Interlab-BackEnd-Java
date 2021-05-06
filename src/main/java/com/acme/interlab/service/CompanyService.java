@@ -6,7 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 public interface CompanyService {
-
     Page<Company> getAllCompanies(Pageable pageable);
     Page<Company> getAllCompaniesByUserId(Long userId, Pageable pageable);
 
@@ -14,5 +13,4 @@ public interface CompanyService {
     Company createCompany(Company company);
     Company updateCompany(Long companyId, Company companyRequest);
     ResponseEntity<?> deleteCompany(Long companyId);
-
 }
