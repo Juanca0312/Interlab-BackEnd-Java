@@ -22,8 +22,10 @@ import java.util.stream.Collectors;
 @CrossOrigin
 @RequestMapping("/api")
 public class ProfileController {
+
     @Autowired
     private ModelMapper mapper;
+
     @Autowired
     private ProfileService profileService;
 

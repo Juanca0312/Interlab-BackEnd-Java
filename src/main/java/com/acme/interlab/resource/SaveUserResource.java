@@ -1,14 +1,12 @@
 package com.acme.interlab.resource;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Getter
-@Setter
+import lombok.Data;
+
+@Data
 public class SaveUserResource {
 
     @NotNull
@@ -18,11 +16,8 @@ public class SaveUserResource {
 
     @NotNull
     @NotBlank
-    @Size(max = 30)
+    @Size(max = 70)
     private String password;
 
-    @NotNull
-    @NotBlank
-    @Size(max = 60)
-    private String email;
+    private String role;
 }

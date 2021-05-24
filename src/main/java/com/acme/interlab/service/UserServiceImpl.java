@@ -14,12 +14,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Service
-public class UserServiceImpl implements UserService {
+@Service("userServiceImpl")
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -32,6 +39,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RequestRepository requestRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Page<User> getAllUsers(Pageable pageable) {
@@ -56,7 +66,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
-        return userRepository.save(user);
+        User newUser = new User();
+        newUser.setUsername(user.getUsername());
+        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        newUser.setRole(user.getRole());
+        return userRepository.save(newUser);
     }
 
     @Override
@@ -65,7 +79,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
         user.setUsername(userRequest.getUsername());
         user.setPassword(userRequest.getPassword());
-        user.setEmail(userRequest.getEmail());
+        user.setRole(userRequest.getRole());
         return userRepository.save(user);
     }
 
@@ -140,5 +154,16 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        com.acme.interlab.model.User user = userRepository.findByUsername(username);
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+                true, true, true, true, buildGranted(user.getRole()) );
+    }
 
+    public List<GrantedAuthority> buildGranted(String role){
+        List<GrantedAuthority> auths = new ArrayList<>();
+        auths.add(new SimpleGrantedAuthority(role));
+        return auths;
+    }
 }

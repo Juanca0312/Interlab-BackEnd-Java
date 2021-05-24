@@ -1,13 +1,9 @@
 package com.acme.interlab.service;
 
 import com.acme.interlab.exception.ResourceNotFoundException;
-import com.acme.interlab.model.Internship;
-import com.acme.interlab.model.Qualification;
 import com.acme.interlab.model.Requirement;
 import com.acme.interlab.repository.InternshipRepository;
-import com.acme.interlab.repository.QualificationRepository;
 import com.acme.interlab.repository.RequirementRepository;
-import com.acme.interlab.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

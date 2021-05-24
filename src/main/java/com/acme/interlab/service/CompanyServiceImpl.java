@@ -2,7 +2,6 @@ package com.acme.interlab.service;
 
 import com.acme.interlab.exception.ResourceNotFoundException;
 import com.acme.interlab.model.Company;
-import com.acme.interlab.model.User;
 import com.acme.interlab.repository.CompanyRepository;
 import com.acme.interlab.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,5 +70,4 @@ public class CompanyServiceImpl implements CompanyService {
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundException("Company", "Id", companyId));
     }
-
 }

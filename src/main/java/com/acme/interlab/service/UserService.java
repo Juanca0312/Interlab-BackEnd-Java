@@ -1,6 +1,5 @@
 package com.acme.interlab.service;
 
-import com.acme.interlab.model.Request;
 import com.acme.interlab.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,5 +19,4 @@ public interface UserService {
 
     User assignUserInternship(Long userId, Long internshipId);
     User unassignUserInternship(Long userId, Long internshipId, Long requestId);
-
 }

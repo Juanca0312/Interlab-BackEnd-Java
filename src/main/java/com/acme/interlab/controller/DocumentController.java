@@ -23,10 +23,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class DocumentController {
     
-@Autowired
+    @Autowired
     private ModelMapper mapper;
 
-@Autowired
+    @Autowired
     private DocumentService documentService;
 
 //Example of how to work with Lists instead of Pages, I strongly believe that the first one is easier to use and test.

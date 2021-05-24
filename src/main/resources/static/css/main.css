@@ -1,0 +1,106 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    width: 100vw;
+    background: rgb(252, 253, 255);
+    background: linear-gradient(103deg, rgba(252, 253, 255, 1) 0%, rgba(239, 242, 249, 1) 100%);
+}
+
+* {
+    margin: 0;
+}
+
+.headerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30%;
+    flex-direction: column;
+    background: #282A3F;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60%;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 5rem;
+    color: #ffffff;
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 2rem;
+    color: #ffffff;
+    text-align: center;
+}
+
+.text {
+    font-size: 2rem;
+    color: #282A3F;
+    text-align: center;
+    padding-bottom: 1rem;
+}
+
+.cta-btn {
+    background: #2699FB;
+    padding: 1.2rem 3rem;
+    border-radius: 10px;
+    border: none;
+    color: #ffffff;
+    font-size: 1.1rem;
+    box-shadow: 0 10px 10px rgba(93, 190, 255, 0.4);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    margin: 1rem;
+    text-decoration: none;
+}
+
+.cta-btn:hover {
+    background: #2EE59D;
+    box-shadow: 0 15px 20px rgba(46, 229, 157, 0.4);
+    transform: translateY(-5px);
+}
+
+@media screen and (max-width: 550px) {
+    .headerContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40%;
+        flex-direction: column;
+        background: #282A3F;
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 60%;
+        flex-direction: column;
+    }
+
+    .title {
+        font-size: 3rem;
+        color: #ffffff;
+        text-align: center;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        color: #ffffff;
+        text-align: center;
+    }
+
+    .text {
+        font-size: 1rem;
+        color: #282A3F;
+        text-align: center;
+        padding-bottom: 1rem;
+    }
+}
