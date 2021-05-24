@@ -13,4 +13,5 @@ public class InternshipResource {
     private String location;
     private String jobTitle;
     private String requiredDocuments;
+    private CompanyResource company;
 }
