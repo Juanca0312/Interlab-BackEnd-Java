@@ -61,9 +61,13 @@ public class InternshipServiceImpl implements InternshipService {
             throw new ResourceNotFoundException("Company", "Id", companyId);
 
         return internshipRepository.findById(internshipId).map(internship -> {
+            internship.setJobTitle(internshipDetails.getJobTitle());
+            internship.setStartingDate(internshipDetails.getStartingDate());
+            internship.setFinishingDate(internshipDetails.getFinishingDate());
             internship.setState(internshipDetails.getState());
             internship.setDescription(internshipDetails.getDescription());
             internship.setSalary(internshipDetails.getSalary());
+            internship.setLocation(internshipDetails.getLocation());
             return internshipRepository.save(internship);
         }).orElseThrow(() -> new ResourceNotFoundException("Internship", "Id", internshipId));
 
