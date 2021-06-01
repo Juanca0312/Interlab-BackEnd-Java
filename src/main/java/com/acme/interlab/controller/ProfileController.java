@@ -45,10 +45,8 @@ public class ProfileController {
 
     //Get by UserId
     @GetMapping("users/{userId}/profiles")
-    public Page<ProfileResource> getProfileByUserId(@PathVariable(name = "userId") Long userId, Pageable pageable) {
-        Page<Profile> profilePage = profileService.getAllProfilesByUserId(userId, pageable);
-        List<ProfileResource> resources = profilePage.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
-        return new PageImpl<>(resources, pageable, resources.size());
+    public ProfileResource getProfileByUserId(@PathVariable(name = "userId") Long userId) {
+        return convertToResource(profileService.getProfileByUserId(userId));
     }
 
     //Create
@@ -59,18 +57,16 @@ public class ProfileController {
     }
 
     //Update
-    @PutMapping("users/{userId}/profiles/{id}")
+    @PutMapping("users/{userId}/profiles")
     public ProfileResource updateProfile(@PathVariable(name = "userId") Long userId,
-                                         @PathVariable(name = "id") Long profileId,
                                          @Valid @RequestBody SaveProfileResource resource) {
-        return convertToResource(profileService.updateProfile(userId, profileId, convertToEntity(resource)));
+        return convertToResource(profileService.updateProfile(userId, convertToEntity(resource)));
     }
 
     //Eliminar
-    @DeleteMapping("users/{userId}/profiles/{id}")
-    public ResponseEntity<?> deleteProfile(@PathVariable(name = "userId") Long userId,
-                                            @PathVariable(name = "id") Long profileId) {
-        return profileService.deleteProfile(userId, profileId);
+    @DeleteMapping("users/{userId}/profiles")
+    public ResponseEntity<?> deleteProfile(@PathVariable(name = "userId") Long userId) {
+        return profileService.deleteProfile(userId);
     }
 
     private Profile convertToEntity(SaveProfileResource resource) {

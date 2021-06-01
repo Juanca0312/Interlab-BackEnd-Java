@@ -44,6 +44,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     @Override
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
     public Page<User> getAllUsers(Pageable pageable) {
       return userRepository.findAll(pageable);
     }

@@ -48,6 +48,11 @@ public class UserController {
         return convertToResource(userService.getUserById(userId));
     }
 
+    @GetMapping("/users/username/{username}")
+    public UserResource getUserByUsername(@PathVariable(name = "username") String username){
+        return convertToResource(userService.getUserByUsername(username));
+    }
+
     @GetMapping("/companies/{companyId}/users")
     public Page<UserResource> getAllUsersByCompanyId(@PathVariable(name = "companyId") Long companyId, Pageable pageable){
         Page<User> usersPage = userService.getAllUsersByCompanyId(companyId, pageable);
@@ -90,8 +95,6 @@ public class UserController {
                                           @PathVariable(name = "internshipId") Long internshipId) {
         return convertToResource(userService.assignUserInternship(userId, internshipId));
     }
-
-
 
     @DeleteMapping("/users/{userId}/internship/{internshipId}/request/{requestId}")
     public UserResource unAssignUserInternship(@PathVariable(name = "userId") Long userId,

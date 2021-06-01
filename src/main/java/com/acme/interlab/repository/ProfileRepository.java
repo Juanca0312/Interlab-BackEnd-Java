@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
-    Page<Profile> findByUserId(Long userId, Pageable pageable);
+    Optional<Profile> findByUserId(Long userId);
     Optional<Profile> findByIdAndUserId(Long id, Long userId);
 }
