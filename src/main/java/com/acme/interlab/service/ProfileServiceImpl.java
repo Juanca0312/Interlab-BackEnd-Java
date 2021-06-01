@@ -31,37 +31,36 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Profile updateProfile(Long userId, Long profileId, Profile profileRequest) {
+    public Profile updateProfile(Long userId, Profile profileRequest) {
         if(!userRepository.existsById(userId)) {
             throw new ResourceNotFoundException("User", "Id", userId);
         }
-
-        return profileRepository.findById(profileId).map(profile -> {
-            profile.setRole(profileRequest.getRole());
+        return userRepository.findById(userId).map(user -> {
+            Profile profile = user.getProfile();
             profile.setFirstName(profileRequest.getFirstName());
             profile.setLastName(profileRequest.getLastName());
+            profile.setEmail(profileRequest.getEmail());
             profile.setField(profileRequest.getField());
             profile.setPhone(profileRequest.getPhone());
             profile.setDescription(profileRequest.getDescription());
             profile.setCountry(profileRequest.getCountry());
             profile.setCity(profileRequest.getCity());
-            if(profileRequest.getRole().equals("student")) {
+            if(user.getRole().equals("student")) {
                 profile.setDegree(profileRequest.getDegree());
                 profile.setUniversity(profileRequest.getUniversity());
                 profile.setSemester(profileRequest.getSemester());
             }
             return profileRepository.save(profile);
-        }).orElseThrow(() -> new ResourceNotFoundException("Profile", "Id", profileId));
-
+        }).orElseThrow(() -> new ResourceNotFoundException("Profile", "userId", userId));
     }
 
     @Override
-    public ResponseEntity<?> deleteProfile(Long userId, Long profileId) {
-        return profileRepository.findByIdAndUserId(profileId, userId).map(profile -> {
+    public ResponseEntity<?> deleteProfile(Long userId) {
+        return userRepository.findById(userId).map(user -> {
+            Profile profile = user.getProfile();
             profileRepository.delete(profile);
             return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException("Profile", "Id", profileId));
-
+        }).orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
     }
 
     @Override
@@ -71,12 +70,13 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
+    public Profile getProfileByUserId(Long userId) {
+        return userRepository.findById(userId).map(User::getProfile).orElseThrow(() -> new ResourceNotFoundException("Profile", "userId", userId));
+    }
+
+    @Override
     public Page<Profile> getAllProfiles(Pageable pageable) {
         return profileRepository.findAll(pageable);
     }
 
-    @Override
-    public Page<Profile> getAllProfilesByUserId(Long userId, Pageable pageable) {
-        return profileRepository.findByUserId(userId, pageable);
-    }
 }

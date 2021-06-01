@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 public interface UserService {
+    User getUserByUsername(String username);
     Page<User> getAllUsers(Pageable pageable);
     Page<User> getAllUsersByCompanyId(Long CompanyId, Pageable pageable);
 

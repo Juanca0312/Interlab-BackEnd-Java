@@ -30,9 +30,7 @@ public class User {
 
     private String role;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "profile_id", referencedColumnName = "id")
-    @JsonIgnore
+    @OneToOne(mappedBy = "user")
     private Profile profile;
 
     @OneToMany(mappedBy = "user")
