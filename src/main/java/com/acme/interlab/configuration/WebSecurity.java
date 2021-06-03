@@ -28,6 +28,20 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
 
 
     @Override
+    public void configure(org.springframework.security.config.annotation.web.builders.WebSecurity web) throws Exception {
+        web.ignoring().antMatchers( "/v2/api-docs",
+                "/swagger-resources",
+                "/swagger-resources/**",
+                "/configuration/ui",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**",
+                // -- Swagger UI v3 (OpenAPI)
+                "/v3/api-docs/**",
+                "/swagger-ui/**", "/interlab-api-docs-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/interlab-api-docs");
+    }
+
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userdetailservice);
     }
@@ -43,5 +57,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
 
                 .addFilterBefore(new JwtFilter(),
                         UsernamePasswordAuthenticationFilter.class);
+
     }
+
+
+
 }
