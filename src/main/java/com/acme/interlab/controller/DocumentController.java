@@ -1,9 +1,9 @@
 package com.acme.interlab.controller;
 
-
 import com.acme.interlab.model.Document;
 import com.acme.interlab.resource.DocumentResource;
 import com.acme.interlab.resource.SaveDocumentResource;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.acme.interlab.service.DocumentService;
 import org.modelmapper.ModelMapper;
@@ -18,7 +18,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+@Tag(name = "documents", description = "Documents API")
+@RestController("Document")
 @CrossOrigin
 @RequestMapping("/api")
 public class DocumentController {

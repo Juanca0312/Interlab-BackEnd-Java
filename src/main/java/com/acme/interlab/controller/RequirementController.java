@@ -1,12 +1,10 @@
 package com.acme.interlab.controller;
 
-import com.acme.interlab.model.Profile;
 import com.acme.interlab.model.Requirement;
-import com.acme.interlab.resource.ProfileResource;
 import com.acme.interlab.resource.RequirementResource;
-import com.acme.interlab.resource.SaveProfileResource;
 import com.acme.interlab.resource.SaveRequirementResource;
 import com.acme.interlab.service.RequirementService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+@Tag(name = "requirements", description = "Requirements API")
+@RestController("Requirement")
 @CrossOrigin
 @RequestMapping("/api")
 public class RequirementController {

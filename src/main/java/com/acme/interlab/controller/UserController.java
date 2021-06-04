@@ -1,14 +1,9 @@
 package com.acme.interlab.controller;
 
 import com.acme.interlab.model.User;
-import com.acme.interlab.resource.CompanyResource;
-import com.acme.interlab.resource.InternshipResource;
 import com.acme.interlab.resource.SaveUserResource;
 import com.acme.interlab.resource.UserResource;
-import com.acme.interlab.service.InternshipService;
-import com.acme.interlab.service.InternshipServiceImpl;
 import com.acme.interlab.service.UserService;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +18,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Tag(name = "user", description = "Users API")
-@RestController
+@Tag(name = "users", description = "Users API")
+@RestController("User")
 @CrossOrigin
 @RequestMapping("/api")
 public class UserController {

@@ -5,6 +5,7 @@ import com.acme.interlab.model.Request;
 import com.acme.interlab.resource.RequestResource;
 import com.acme.interlab.resource.SaveRequestResource;
 import com.acme.interlab.service.RequestService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,8 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
-
-@RestController
+@Tag(name = "requests", description = "Requests API")
+@RestController("Request")
 @CrossOrigin
 @RequestMapping("/api")
 public class RequestController {

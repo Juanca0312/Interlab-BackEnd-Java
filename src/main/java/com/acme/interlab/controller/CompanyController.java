@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Tag(name = "companies", description = "Companies API")
-@RestController
+@RestController("Company")
 @CrossOrigin
 @RequestMapping(value ="/api")
 public class CompanyController {

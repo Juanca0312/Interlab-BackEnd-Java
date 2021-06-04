@@ -3,6 +3,7 @@ package com.acme.interlab.controller;
 import com.acme.interlab.model.Profile;
 import com.acme.interlab.resource.ProfileResource;
 import com.acme.interlab.resource.SaveProfileResource;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.acme.interlab.service.ProfileService;
 import org.modelmapper.ModelMapper;
@@ -17,8 +18,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
-@RestController
+@Tag(name = "profiles", description = "Profiles API")
+@RestController("Profile")
 @CrossOrigin
 @RequestMapping("/api")
 public class ProfileController {

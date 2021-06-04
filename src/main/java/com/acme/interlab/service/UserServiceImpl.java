@@ -1,6 +1,7 @@
 package com.acme.interlab.service;
 
 import com.acme.interlab.exception.ResourceNotFoundException;
+import com.acme.interlab.exception.ResourceAlreadyExistsException;
 import com.acme.interlab.model.Company;
 import com.acme.interlab.model.Internship;
 import com.acme.interlab.model.Request;
@@ -71,6 +72,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User createUser(User user) {
+        User existingUser = userRepository.findByUsername(user.getUsername());
+        if(existingUser != null) {
+            throw new ResourceAlreadyExistsException("User", "username", user.getUsername());
+        }
         User newUser = new User();
         newUser.setUsername(user.getUsername());
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));

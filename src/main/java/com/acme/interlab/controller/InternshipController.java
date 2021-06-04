@@ -1,9 +1,9 @@
 package com.acme.interlab.controller;
 
 import com.acme.interlab.model.Internship;
-import com.acme.interlab.resource.CompanyResource;
 import com.acme.interlab.resource.InternshipResource;
 import com.acme.interlab.resource.SaveInternshipResource;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.acme.interlab.service.InternshipService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,8 @@ import org.modelmapper.ModelMapper;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
-
-@RestController
+@Tag(name = "internships", description = "Internships API")
+@RestController("Internship")
 @CrossOrigin
 @RequestMapping(value ="/api")
 public class InternshipController {

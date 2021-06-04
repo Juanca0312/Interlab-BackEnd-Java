@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,6 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -29,16 +33,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
 
     @Override
     public void configure(org.springframework.security.config.annotation.web.builders.WebSecurity web) throws Exception {
-        web.ignoring().antMatchers( "/v2/api-docs",
-                "/swagger-resources",
-                "/swagger-resources/**",
-                "/configuration/ui",
-                "/configuration/security",
-                "/swagger-ui.html",
-                "/webjars/**",
-                // -- Swagger UI v3 (OpenAPI)
-                "/v3/api-docs/**",
-                "/swagger-ui/**", "/interlab-api-docs-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/interlab-api-docs");
+        web.ignoring().antMatchers("/swagger-ui/index.html");
     }
 
     @Override
@@ -46,10 +41,41 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
         auth.userDetailsService(userdetailservice);
     }
 
+    private static final String[] AUTH_LIST = {
+            // -- swagger ui
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/configuration/ui",
+            "/swagger-resources/configuration/security",
+            "/swagger-resources/**",
+            "/swagger-ui.html**",
+            "swagger-ui**",
+            "swagger-ui/**",
+            "/swagger.ui**",
+            "/swagger-ui/",
+            "/swagger-ui/**",
+            "**/swagger-ui/",
+            "**/swagger-ui/**",
+            "swagger-ui.css",
+            "/swagger-ui.css",
+            "/interlab-api-docs",
+            "/interlab-api-docs**",
+            "/interlab-api-docs/**",
+            "/interlab-api-docs/",
+            "/interlab-api-docs/swagger-config",
+            "/interlab-api-docs/swagger-config**",
+            "/interlab-api-docs/swagger-config/",
+            "/interlab-api-docs/swagger-config/**",
+            "/index.html?configUrl=/interlab-api-docs/swagger-config",
+            "index.html?configUrl=/interlab-api-docs/swagger-config",
+            "/webjars/**",
+            "favicon.ico","/css/**", "/login", "/"
+    };
+
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/css/**", "/login", "/").permitAll()
+                .antMatchers(AUTH_LIST).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new LoginFilter("/login", authenticationManager()),

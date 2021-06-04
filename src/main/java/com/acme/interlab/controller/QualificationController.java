@@ -4,6 +4,7 @@ import com.acme.interlab.model.Qualification;
 import com.acme.interlab.resource.QualificationResource;
 import com.acme.interlab.resource.SaveQualificationResource;
 import com.acme.interlab.service.QualificationService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+@Tag(name = "qualifications", description = "Qualifications API")
+@RestController("Qualification")
 @CrossOrigin
 @RequestMapping("/api")
 public class QualificationController {
