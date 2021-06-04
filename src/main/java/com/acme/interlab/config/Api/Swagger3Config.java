@@ -12,7 +12,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
 public class Swagger3Config {
-    @Bean
+    @Bean("Interlab API")
     public Docket produceApi() {
         return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(RequestHandlerSelectors.basePackage("com.springboot.swagger.controller"))

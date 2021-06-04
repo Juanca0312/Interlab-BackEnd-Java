@@ -48,8 +48,35 @@ body {
 
 .cta-btn {
     background: #2699FB;
-    padding: 1.2rem 3rem;
+    width: 10%;
+    min-width: 130px;
     border-radius: 10px;
+    padding: 1rem 0;
+    border: none;
+    color: #ffffff;
+    font-size: 1.1rem;
+    box-shadow: 0 10px 10px rgba(93, 190, 255, 0.4);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    margin: 1rem 1rem 5rem 1rem;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+}
+
+.cta-btn:hover {
+    background: #2EE59D;
+    box-shadow: 0 15px 20px rgba(46, 229, 157, 0.4);
+    transform: translateY(-5px);
+}
+
+.swagger-btn {
+    background: #85EA2D;
+    width: 10%;
+    min-width: 130px;
+    border-radius: 10px;
+    padding: 1rem 0;
     border: none;
     color: #ffffff;
     font-size: 1.1rem;
@@ -59,9 +86,11 @@ body {
     outline: none;
     margin: 1rem;
     text-decoration: none;
+    display: flex;
+    justify-content: center;
 }
 
-.cta-btn:hover {
+.swagger-btn:hover {
     background: #2EE59D;
     box-shadow: 0 15px 20px rgba(46, 229, 157, 0.4);
     transform: translateY(-5px);
