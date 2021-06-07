@@ -77,6 +77,14 @@ public class InternshipController {
         return new PageImpl<>(internships, pageable, internshipCount);
     }
 
+    @GetMapping("/activeInternships")
+    public Page<InternshipResource> getAllActiveInternships(Pageable pageable) {
+        List<InternshipResource> internships = internshipService.getAllActiveInternships(pageable)
+                .getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        int internshipCount = internships.size();
+        return new PageImpl<>(internships, pageable, internshipCount);
+    }
+
     private Internship convertToEntity(SaveInternshipResource resource) { return mapper.map(resource, Internship.class); }
 
     private InternshipResource convertToResource(Internship entity) { return mapper.map(entity, InternshipResource.class); }

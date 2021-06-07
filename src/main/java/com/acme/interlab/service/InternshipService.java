@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface InternshipService {
     Page<Internship> getAllInternships(Pageable pageable);
+    Page<Internship> getAllActiveInternships(Pageable pageable);
     Page<Internship> getAllInternshipsByCompanyId(Long companyId, Pageable pageable);
     Internship getInternshipByIdAndCompanyId(Long companyId, Long internshipId);
     Internship createInternship(Long companyId, Internship internship);

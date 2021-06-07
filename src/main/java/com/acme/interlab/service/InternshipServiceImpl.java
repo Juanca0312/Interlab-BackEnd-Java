@@ -34,6 +34,24 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
+    public Page<Internship> getAllActiveInternships(Pageable pageable) {
+        Page<Internship> internshipsPage = internshipRepository.findAll(pageable);
+        List<Internship> internships = internshipsPage.toList();
+        List<Internship> activeInternships = new ArrayList<Internship>();
+
+        for(Internship internship: internships){
+            if(internship.getState().equals("active")){
+                activeInternships.add(internship);
+            }
+        }
+
+        int internshipsCount = activeInternships.size();
+
+        return new PageImpl<>(activeInternships, pageable, internshipsCount);
+
+    }
+
+    @Override
     public Page<Internship> getAllInternshipsByCompanyId(Long companyId, Pageable pageable) {
         return internshipRepository.findByCompanyId(companyId, pageable);
     }
