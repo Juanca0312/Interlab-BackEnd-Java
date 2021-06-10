@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface RequestRepository extends JpaRepository<Request, Long> {
     Page<Request> findByUserId(Long userId, Pageable pageable);
     Optional<Request> findByIdAndUserIdAndInternshipId(Long id, Long userId, Long internshipId);
+    Page<Request> findByUserIdAndState(Long userId, String state, Pageable pageable);
 }
