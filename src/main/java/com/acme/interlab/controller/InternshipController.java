@@ -3,6 +3,7 @@ package com.acme.interlab.controller;
 import com.acme.interlab.model.Internship;
 import com.acme.interlab.resource.InternshipResource;
 import com.acme.interlab.resource.SaveInternshipResource;
+import com.acme.interlab.util.InternshipStudent;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.acme.interlab.service.InternshipService;
@@ -84,6 +85,11 @@ public class InternshipController {
         int internshipCount = internships.size();
         return new PageImpl<>(internships, pageable, internshipCount);
     }
+
+    @GetMapping("/companies/{companyId}/endedInternships")
+    public Page<InternshipStudent> getAllEndedInternships(Pageable pageable, @PathVariable(name = "companyId") Long companyId) {
+        return internshipService.getAllEndedInternships(companyId, pageable);
+    } //TODO: PROBAR ESTE ENDPOINT
 
     private Internship convertToEntity(SaveInternshipResource resource) { return mapper.map(resource, Internship.class); }
 
