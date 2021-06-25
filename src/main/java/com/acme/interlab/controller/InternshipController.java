@@ -57,6 +57,12 @@ public class InternshipController {
         return convertToResource(internshipService.updateInternship(companyId, internshipId, convertToEntity(resource)));
     }
 
+    @PutMapping("users/{userId}/internships/{id}")
+    public Internship selectStudent(@PathVariable(name = "userId") Long userId,
+                                               @PathVariable(name = "id") Long internshipId){
+        return internshipService.selectStudent(userId, internshipId);
+    }
+
     @DeleteMapping("companies/{companyId}/internships/{id}")
     public ResponseEntity<?> deleteInternship(@PathVariable(name = "companyId") Long companyId,
                                                 @PathVariable(name = "id") Long internshipId){
@@ -81,6 +87,14 @@ public class InternshipController {
     @GetMapping("/activeInternships")
     public Page<InternshipResource> getAllActiveInternships(Pageable pageable) {
         List<InternshipResource> internships = internshipService.getAllActiveInternships(pageable)
+                .getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        int internshipCount = internships.size();
+        return new PageImpl<>(internships, pageable, internshipCount);
+    }
+
+    @GetMapping("companies/{companyId}/activeInternships")
+    public Page<InternshipResource> getAllActiveInternships(@PathVariable(name = "companyId") Long companyId, Pageable pageable) {
+        List<InternshipResource> internships = internshipService.getAllActiveInternshipsByCompanyId(companyId, pageable)
                 .getContent().stream().map(this::convertToResource).collect(Collectors.toList());
         int internshipCount = internships.size();
         return new PageImpl<>(internships, pageable, internshipCount);

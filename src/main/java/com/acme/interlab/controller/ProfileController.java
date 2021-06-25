@@ -3,6 +3,7 @@ package com.acme.interlab.controller;
 import com.acme.interlab.model.Profile;
 import com.acme.interlab.resource.ProfileResource;
 import com.acme.interlab.resource.SaveProfileResource;
+import com.acme.interlab.util.UserProfile;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.acme.interlab.service.ProfileService;
@@ -48,6 +49,11 @@ public class ProfileController {
     @GetMapping("users/{userId}/profiles")
     public ProfileResource getProfileByUserId(@PathVariable(name = "userId") Long userId) {
         return convertToResource(profileService.getProfileByUserId(userId));
+    }
+
+    @GetMapping("internships/{internshipId}/profiles")
+    public Page<UserProfile> getStudentProfileOfinternships(@PathVariable(name = "internshipId") Long internshipId, Pageable pageable) {
+        return profileService.getAllProfilesByInternshipId(internshipId, pageable);
     }
 
     //Create

@@ -58,6 +58,46 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
+    public Page<Internship> getAllActiveInternshipsByCompanyId(Long companyId, Pageable pageable) {
+        Page<Internship> internshipsPage = internshipRepository.findByCompanyId(companyId, pageable);
+        List<Internship> internships = internshipsPage.toList();
+        List<Internship> companyActiveInternships = new ArrayList<Internship>();
+
+        for(Internship internship: internships){
+            if(internship.getState().equals("active")){
+                companyActiveInternships.add(internship);
+            }
+        }
+
+        int internshipsCount = companyActiveInternships.size();
+
+        return new PageImpl<>(companyActiveInternships, pageable, internshipsCount);
+    }
+
+    @Override
+    public Internship selectStudent(Long userId, Long internshipId) {
+        Internship internship = internshipRepository.findById(internshipId).orElseThrow(() -> new ResourceNotFoundException(
+                "profile not found with Id " ));
+        List<Request> requests = internship.getRequests();
+
+
+        for(Request request: requests){
+            if(request.getUser().getId().equals(userId)){
+                request.setState("active");
+            }
+            else {
+                request.setState("rejected");
+            }
+            requestRepository.save(request);
+        }
+
+        internship.setState("ended");
+        internshipRepository.save(internship);
+
+        return internship;
+    }
+
+    @Override
     public Page<InternshipStudent> getAllEndedInternships(Long companyId, Pageable pageable) {
         Page<Internship> internshipsPage = internshipRepository.findByCompanyId(companyId, pageable);
         List<Internship> internships = internshipsPage.toList();

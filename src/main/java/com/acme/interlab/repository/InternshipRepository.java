@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface InternshipRepository extends JpaRepository<Internship, Long> {
-    Page<Internship> findByCompanyId(Long internshipId, Pageable pageable);
+    Page<Internship> findByCompanyId(Long companyId, Pageable pageable);
     Optional<Internship> findByIdAndCompanyId(Long id, Long CompanyId);
 }
