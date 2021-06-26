@@ -46,7 +46,7 @@ public class InternshipServiceImpl implements InternshipService {
         List<Internship> activeInternships = new ArrayList<Internship>();
 
         for(Internship internship: internships){
-            if(internship.getState().equals("active")){
+            if(internship.getState().equalsIgnoreCase("active")){
                 activeInternships.add(internship);
             }
         }
@@ -64,7 +64,7 @@ public class InternshipServiceImpl implements InternshipService {
         List<Internship> companyActiveInternships = new ArrayList<Internship>();
 
         for(Internship internship: internships){
-            if(internship.getState().equals("active")){
+            if(internship.getState().equalsIgnoreCase("active")){
                 companyActiveInternships.add(internship);
             }
         }
@@ -104,7 +104,7 @@ public class InternshipServiceImpl implements InternshipService {
         List<InternshipStudent> endedInternships = new ArrayList<InternshipStudent>();
 
         for(Internship internship: internships){
-            if(internship.getState().equals("ended")){
+            if(internship.getState().equalsIgnoreCase("ended")){
                 InternshipStudent ended = new InternshipStudent();
                 ended.setInternshipId(internship.getId());
                 ended.setState(internship.getState());
@@ -120,10 +120,10 @@ public class InternshipServiceImpl implements InternshipService {
                 Request requestEnded = new Request();
                 for(Request request: internship.getRequests()){
                     //agarramos el request "ended" que solo deberia haber 1, pues cuando finalizó, se debio cambiar el estado de los otros requests a rejectec
-                    if(request.getState().equals("ended")){
+                    if(request.getState().equalsIgnoreCase("ended")){
                         requestEnded = request;
                     };
-                }
+                }e
                 Profile profileStudent = profileRepository.findByUserId(requestEnded.getUser().getId()).orElseThrow(() -> new ResourceNotFoundException(
                         "profile not found with Id " ));
                 ended.setFirstName(profileStudent.getFirstName());
