@@ -123,7 +123,7 @@ public class InternshipServiceImpl implements InternshipService {
                     if(request.getState().equalsIgnoreCase("ended")){
                         requestEnded = request;
                     };
-                }e
+                }
                 Profile profileStudent = profileRepository.findByUserId(requestEnded.getUser().getId()).orElseThrow(() -> new ResourceNotFoundException(
                         "profile not found with Id " ));
                 ended.setFirstName(profileStudent.getFirstName());
