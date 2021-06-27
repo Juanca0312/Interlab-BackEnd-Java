@@ -104,7 +104,7 @@ public class InternshipServiceImpl implements InternshipService {
         List<InternshipStudent> endedInternships = new ArrayList<InternshipStudent>();
 
         for(Internship internship: internships){
-            if(internship.getState().equalsIgnoreCase("ended")){
+            if(internship.getState().equals("ended")){
                 InternshipStudent ended = new InternshipStudent();
                 ended.setInternshipId(internship.getId());
                 ended.setState(internship.getState());
@@ -118,27 +118,34 @@ public class InternshipServiceImpl implements InternshipService {
 
                 //student
                 Request requestEnded = new Request();
-                for(Request request: internship.getRequests()){
-                    //agarramos el request "ended" que solo deberia haber 1, pues cuando finalizó, se debio cambiar el estado de los otros requests a rejectec
-                    if(request.getState().equalsIgnoreCase("ended")){
+
+                List<Request> requests = internship.getRequests();
+                for(Request request: requests){
+                    //agarramos el request "ended" o "active" que solo deberia haber 1, pues cuando finalizó, se debio cambiar el estado de los otros requests a rejected
+                    if(request.getState().equals("ended") || request.getState().equals("active")){
+
                         requestEnded = request;
+                        Profile profileStudent = profileRepository.findByUserId(request.getUser().getId()).orElseThrow(() -> new ResourceNotFoundException(
+                                "profile not found with Id " ));
+
+                        ended.setFirstName(profileStudent.getFirstName());
+                        ended.setLastName(profileStudent.getLastName());
+                        ended.setField(profileStudent.getField());
+                        ended.setPhone(profileStudent.getPhone());
+                        ended.setEmail(profileStudent.getEmail());
+                        ended.setU_description(profileStudent.getDescription());
+                        ended.setCountry(profileStudent.getCountry());
+                        ended.setCity(profileStudent.getCity());
+                        ended.setUniversity(profileStudent.getUniversity());
+                        ended.setDegree(profileStudent.getDegree());
+                        ended.setSemester(profileStudent.getSemester());
+
+                        //lo agregamos en el if porque solo 1 internship
+                        endedInternships.add(ended);
+
                     };
                 }
-                Profile profileStudent = profileRepository.findByUserId(requestEnded.getUser().getId()).orElseThrow(() -> new ResourceNotFoundException(
-                        "profile not found with Id " ));
-                ended.setFirstName(profileStudent.getFirstName());
-                ended.setLastName(profileStudent.getLastName());
-                ended.setField(profileStudent.getField());
-                ended.setPhone(profileStudent.getPhone());
-                ended.setEmail(profileStudent.getEmail());
-                ended.setU_description(profileStudent.getDescription());
-                ended.setCountry(profileStudent.getCountry());
-                ended.setCity(profileStudent.getCity());
-                ended.setUniversity(profileStudent.getUniversity());
-                ended.setDegree(profileStudent.getDegree());
-                ended.setSemester(profileStudent.getSemester());
 
-                endedInternships.add(ended);
             }
         }
 
