@@ -1,5 +1,6 @@
 package com.acme.interlab.service;
 
+import com.acme.interlab.exception.ResourceAlreadyExistsException;
 import com.acme.interlab.exception.ResourceNotFoundException;
 import com.acme.interlab.model.Company;
 import com.acme.interlab.model.Internship;
@@ -148,6 +149,9 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public Request createRequest(Long userId, Long internshipId, Request request) {
+        if(requestRepository.existsByUserIdAndInternshipId(userId, internshipId)){
+            throw new ResourceAlreadyExistsException("Request", "userId", userId);
+        }
         return userRepository.findById(userId).map(user -> {
             request.setUser(user);
             Internship internship = internshipRepository.findById(internshipId).orElseThrow(() -> new ResourceNotFoundException("Internship", "Id", internshipId));

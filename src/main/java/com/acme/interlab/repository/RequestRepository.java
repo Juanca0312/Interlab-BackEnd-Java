@@ -12,6 +12,7 @@ import java.util.Optional;
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Long> {
     Page<Request> findByUserId(Long userId, Pageable pageable);
+    Boolean existsByUserIdAndInternshipId(Long userId, Long internshipId);
     List<Request> findByUserId(Long userId);
     Optional<Request> findByIdAndUserIdAndInternshipId(Long id, Long userId, Long internshipId);
     Page<Request> findByUserIdAndState(Long userId, String state, Pageable pageable);
